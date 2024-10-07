@@ -1,34 +1,15 @@
-# CLoPy
-Closed-loop feedback training system (CLoPy) for neurofeedback and specified movement feedback in mice
+# closed_loop_pi
 
-![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/fig1.png?raw=true)
+# Install PyAudio
+sudo apt-get install portaudio19-dev python3-pyaudio
 
-![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/fig2.png?raw=true)
+pip3 install PyAudio
 
-Click this to watch an overview
+# Install audiostream
+sudo apt-get install libsdl1.2-dev
 
-[![CLoPy](<image path>)](<youtube url>)
+sudo apt-get install libsdl-mixer1.2-dev
 
+pip3 install cython
 
-
-How-to
----------------------------
-
-1. Install Python 3.x (anaconda recommended)
-
-3. Install <>
-4. Clone the repository:
-
-   ```bash
-   $ git clone <>
-   ```
-
-   or download as zip and extract.
-
-5. In the root directory run
-
-   ```bash
-   $ python <>
-   ```
-
-1. Use <kbd>Esc</kbd> to close the program.
+pip3 install kivy

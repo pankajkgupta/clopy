@@ -120,7 +120,7 @@ def clear_vars():
     avgDffROI10 = np.array([])
 
 def GetConfigValues(data_dir):
-    global image_stream_filename, dffHistory, roi_names, roi1, roi2, roi3, roi4, roi5, roi6, roi7, roi8, roi9, roi10, rewardThreshold, fr
+    global image_stream_filename, dffHistory, roi_names, roi1, roi2, roi3, roi4, roi5, roi6, roi7, roi8, roi9, roi10, reward_threshold, fr
     config = ConfigParser()
     config.read(data_dir + os.sep + 'config.ini')
     cfg = config.get('configsection', 'config')
@@ -143,11 +143,11 @@ def GetConfigValues(data_dir):
     # roi8 = cvui.Rect(161,195, rec[2], rec[3])
     # roi9 = cvui.Rect(55,195, rec[2], rec[3])
     # roi10 = cvui.Rect(181,195, rec[2], rec[3])
-    # nTones = int(config.get(cfg, 'nTones'))
+    # n_tones = int(config.get(cfg, 'n_tones'))
 
     return cfgDict
 
-def get_freqs(nTones):
+def get_freqs(n_tones):
     # quarter-octave increment factor
     qo = 2 ** (1 / 4)
     # initial audio frequency
@@ -155,8 +155,8 @@ def get_freqs(nTones):
     freqDict = {}
     
     #import pdb; pdb.set_trace()
-    for i in range(1, nTones):
-        binSize = int(100 / nTones)
+    for i in range(1, n_tones):
+        binSize = int(100 / n_tones)
         freq = freqs[-1] * qo
 
         freqDict.update({i: freq for i in range(binSize * (i - 1), 101)})
@@ -211,9 +211,9 @@ def plt_spontaneous_thresholds(mouse_id, data_dir):
 
     spont_thresh = get_spont_reward_threshold(df)
     spontThreshArray = np.append(spontThreshArray, spont_thresh)
-    threshArray = np.append(threshArray, rewardThreshold)
-    if rewardThreshold > 0:
-        actualRewardFrames = df.frame[df['roi_activity'] > rewardThreshold]
+    threshArray = np.append(threshArray, reward_threshold)
+    if reward_threshold > 0:
+        actualRewardFrames = df.frame[df['roi_activity'] > reward_threshold]
     else:
         actualRewardFrames = []
     actualRewardArray = np.append(actualRewardArray, len(actualRewardFrames))
@@ -249,7 +249,7 @@ def plt_roi_activity(mouse_id, data_dir):
     aa = aa.append(df['roi_activity'])
     # a.append(df['roi_activity'].mean())
     ax = plt.axes()
-    plt.hlines(y=rewardThreshold, xmin=min(df['time']), xmax=max(df['time']), color='k', linestyle='-', linewidth=5.0)
+    plt.hlines(y=reward_threshold, xmin=min(df['time']), xmax=max(df['time']), color='k', linestyle='-', linewidth=5.0)
     ax.plot(df['time'], df['roi_activity'])
     ax.xaxis.set_major_formatter(DateFormatter('%H:%M:%S'))
     ax.xaxis.set_major_locator(plt.MaxNLocator(18))
@@ -508,9 +508,9 @@ def plt_roi_fluoro(mouse_id, data_dir, processing_dir):
     #
     # rewardFrames = []
     # if 'sham_roi_activity' in df.columns:
-    #     rewardFrames = df.frame[df['sham_roi_activity'] > rewardThreshold]
+    #     rewardFrames = df.frame[df['sham_roi_activity'] > reward_threshold]
     # else:
-    #     rewardFrames = df.frame[df['roi_activity'] > rewardThreshold]
+    #     rewardFrames = df.frame[df['roi_activity'] > reward_threshold]
     # for xc in rewardFrames:
     #     epoch = np.arange(df.frame[xc]-epochSize,df.frame[xc]+epochSize)
     #     if avgDffROI[xc] > avgDffROI[epoch[0]]:
@@ -528,8 +528,8 @@ def plt_roi_fluoro(mouse_id, data_dir, processing_dir):
     rewPt = df.loc[df['reward'] ==1]
     # rewPt= df.loc[-df['roi1dff-roi2dff'] > df['rew_threshold']]
     if 'sham_roi_activity' in df.columns:
-        actualRewardFrames = df.frame[df['sham_roi_activity'] > rewardThreshold]
-        expectedRewardFrames = df.frame[df['roi_activity'] > rewardThreshold]
+        actualRewardFrames = df.frame[df['sham_roi_activity'] > reward_threshold]
+        expectedRewardFrames = df.frame[df['roi_activity'] > reward_threshold]
     else:
         actualRewardFrames = expectedRewardFrames = rewPt['frame'].values
     actualRewardArray = np.append(actualRewardArray, len(actualRewardFrames))

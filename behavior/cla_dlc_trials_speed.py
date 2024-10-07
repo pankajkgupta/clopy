@@ -67,21 +67,21 @@ ppmm = float(cfgDict['ppmm'])
 start_radius = int(float(cfgDict['start_radius_mm']) * ppmm)
 target_radius = int(float(cfgDict['target_radius_mm']) * ppmm)
 # roi_size = [int(round(x)) for x in np.array([float(i) for i in cfgDict['roi_size_mm'].split(',')]) * ppmm]
-totalTrials = int(cfgDict['total_trials'])
+total_trials = int(cfgDict['total_trials'])
 maxTrialDur = int(cfgDict['max_trial_dur'])
-restDuration = int(cfgDict['initial_rest_dur'])
-successRestDuration = int(cfgDict['success_rest_dur'])
-failRestDuration = int(cfgDict['fail_rest_dur'])
+rest_duration = int(cfgDict['initial_rest_dur'])
+successrest_duration = int(cfgDict['success_rest_dur'])
+failrest_duration = int(cfgDict['fail_rest_dur'])
 bregma = list(map(int, cfgDict['bregma'].split(', ')))
 dlc_model_path = cfgDict['dlc_model_path']
 audio_tr_prob = float(cfgDict['audio'])
-nTones = int(cfgDict['ntones'])
+n_tones = int(cfgDict['n_tones'])
 audiodelay = int(cfgDict['audio_delay'])
 freqQue = deque(maxlen=(audiodelay*fr)+1)
 freqQue.extend([1000]*(audiodelay*fr))
 rewarddelay = int(cfgDict['reward_delay'])
 reward_threshold_mm = float(cfgDict['reward_threshold_mm'])
-adaptiveThreshold = int(cfgDict['adaptive_threshold'])
+adaptive_threshold = int(cfgDict['adaptive_threshold'])
 speed_threshold = int(cfgDict['speed_threshold'])
 # sessionType = clh.SessionType.single_audio_normal_reward
 sessionType = clh.SessionType.normal_audio_normal_reward
@@ -110,12 +110,12 @@ working = False
 
 n_aud_ch = 1
 au_rate = 44100
-audio_tr_arr = rm.sample([1]*int(audio_tr_prob*totalTrials) + [0]*int((1-audio_tr_prob)*totalTrials),k=totalTrials)
+audio_tr_arr = rm.sample([1]*int(audio_tr_prob*total_trials) + [0]*int((1-audio_tr_prob)*total_trials),k=total_trials)
 # insert audio=0 for 0th trial
 #audio_tr_arr = np.insert(audio_tr_arr, 0, 0)
-#freqDict = clh.get_freqs(nTones)
+#freqDict = clh.get_freqs(n_tones)
 #get frequencies in range 1-24k with quarter octave increment
-freqs = [1000 * (2**(1/4))**i for i in range(nTones)]
+freqs = [1000 * (2**(1/4))**i for i in range(n_tones)]
 #freqs = np.interp(np.arange(0, len(freqs), 0.5), np.arange(0, len(freqs)), freqs).astype(int)
 
 speed_bins = np.linspace(0, speed_threshold, len(freqs)-1) # -1 because we are going to insert inf below
@@ -320,7 +320,7 @@ for session, reward_threshold_mm in sessions:
     board.digitalWrite(pinBrainTTL, "HIGH")
     # board.digitalWrite(pinBrainTTL, "LOW")
     GPIO.output(ledLightTTL, GPIO.HIGH)
-    #sessDurSec = totalTrials * (failRestDuration + maxTrialDur)
+    #sessDurSec = total_trials * (failrest_duration + maxTrialDur)
     #lightTmr = Timer(1,timed_led, args=(ledLightTTL,sessDurSec))
     #lightTmr.start()
     fps = FPS().start()
@@ -341,7 +341,7 @@ for session, reward_threshold_mm in sessions:
     sinsource.stop()
     #############
     
-    while image is not None and nTrial <= totalTrials:
+    while image is not None and nTrial <= total_trials:
         start = time.time()
         
         image = vs.get_image()
@@ -393,7 +393,7 @@ for session, reward_threshold_mm in sessions:
         if runTrial:
             print('Trial time: ', round(time.time() - trialTimer, 2), end='\r')
             tr = nTrial
-            restDuration = failRestDuration
+            rest_duration = failrest_duration
 
             ## NORMAL REWARDS
             if sessionType == clh.SessionType.normal_audio_normal_reward:
@@ -424,7 +424,7 @@ for session, reward_threshold_mm in sessions:
                 print('total rewards: ' + str(totRewards), end="\n")
 
                 runTrial = False
-                restDuration = successRestDuration
+                rest_duration = successrest_duration
             
             elif time.time() - trialTimer >= maxTrialDur:
                 runTrial = False
@@ -442,7 +442,7 @@ for session, reward_threshold_mm in sessions:
             rest = True
             runTrial = False
 
-            if rest and time.time() - restTimer < restDuration: # rest for the restDuration
+            if rest and time.time() - restTimer < rest_duration: # rest for the rest_duration
                 print('Rest time: ', round(time.time() - restTimer, 2), end='\r')
                 freq = 0
                 tr = 0
@@ -494,7 +494,7 @@ for session, reward_threshold_mm in sessions:
                 ##########################################################
     
         # check if adaptive threshold is enabled every 15 seconds
-        if adaptiveThreshold and time.time() - rewardThreshTimer > 30:
+        if adaptive_threshold and time.time() - rewardThreshTimer > 30:
             # if more than 1 reward dispensed in last epoch, increase the threshold
             if rewardsInEpoch > 1:
                 speed_threshold += 2
@@ -585,7 +585,7 @@ for session, reward_threshold_mm in sessions:
                      headers[4]: fps._end,
                      headers[5]: fps.elapsed(),
                      headers[6]: fps.fps(),
-                     headers[7]: nTones,
+                     headers[7]: n_tones,
                      headers[8]: start_radius,
                      headers[9]: target_roi_manager.r,
                      headers[10]: totRewards,

@@ -60,11 +60,11 @@ rois = []
 ppmm = float(cfgDict['ppmm'])
 # roi_size in config file is in mm. We convert it to pixel coordinates and round off.
 roi_size = [int(round(x)) for x in np.array([float(i) for i in cfgDict['roi_size'].split(',')]) * ppmm]
-totalTrials = int(cfgDict['totaltrials'])
+total_trials = int(cfgDict['total_trials'])
 maxTrialDur = int(cfgDict['max_trial_dur'])
-restDuration = int(cfgDict['initial_rest_dur'])
-successRestDuration = int(cfgDict['success_rest_dur'])
-failRestDuration = int(cfgDict['fail_rest_dur'])
+rest_duration = int(cfgDict['initial_rest_dur'])
+successrest_duration = int(cfgDict['success_rest_dur'])
+failrest_duration = int(cfgDict['fail_rest_dur'])
 bregma = list(map(int, cfgDict['bregma'].split(', ')))
 br = clh.Position(bregma[0], bregma[1])
 # get seep pixel locations(in mm) from config file and parse to a dictionary
@@ -91,7 +91,7 @@ for name in roi_names:
     runningImgQuROI[-1].append(np.zeros((roi_size[0], roi_size[1], 3))) #append blank image at the end
 
 audio_tr_prob = float(config.get(cfg, 'audio'))
-nTones = int(config.get(cfg, 'nTones'))
+n_tones = int(config.get(cfg, 'n_tones'))
 audiodelay = int(config.get(cfg, 'audio_delay'))
 freqQue = deque(maxlen=(audiodelay*fr)+1)
 freqQue.extend([1000]*(audiodelay*fr))
@@ -99,8 +99,8 @@ rewarddelay = int(config.get(cfg, 'reward_delay'))
 relAvgDffQue = deque(maxlen=(rewarddelay*fr)+1)
 relAvgDffQue.extend([0]*(rewarddelay*fr))
 
-rewardThreshold = float(config.get(cfg, 'rewardThreshold'))
-adaptiveThreshold = int(config.get(cfg, 'adaptivethreshold'))
+reward_threshold = float(config.get(cfg, 'reward_threshold'))
+adaptive_threshold = int(config.get(cfg, 'adaptive_threshold'))
 # sessionType = clh.SessionType.normal_audio_normal_reward
 sessionType = clh.SessionType.no_audio_random_reward
 
@@ -110,22 +110,22 @@ i2c = busio.I2C(board.SCL, board.SDA)
 # Create MPR121 object.
 touchCap = adafruit_mpr121.MPR121(i2c)
 
-#list of sessions. session_name,rewardThreshold
-sessions = [('S1',rewardThreshold)]
+#list of sessions. session_name,reward_threshold
+sessions = [('S1',reward_threshold)]
 
 working = False
 
 n_aud_ch = 1
 au_rate = 44100
-audio_tr_arr = rm.sample([1]*int(audio_tr_prob*totalTrials) + [0]*int((1-audio_tr_prob)*totalTrials),k=totalTrials)
+audio_tr_arr = rm.sample([1]*int(audio_tr_prob*total_trials) + [0]*int((1-audio_tr_prob)*total_trials),k=total_trials)
 # insert audio=0 for 0th trial
 #audio_tr_arr = np.insert(audio_tr_arr, 0, 0)
-#freqDict = clh.get_freqs(nTones)
+#freqDict = clh.get_freqs(n_tones)
 #get frequencies in range 1-24k with quarter octave increment
-freqs = [1000 * (2**(1/4))**i for i in range(nTones)]
+freqs = [1000 * (2**(1/4))**i for i in range(n_tones)]
 #freqs = np.interp(np.arange(0, len(freqs), 0.5), np.arange(0, len(freqs)), freqs).astype(int)
 
-dff_bins = np.linspace(0, rewardThreshold, len(freqs)-2)
+dff_bins = np.linspace(0, reward_threshold, len(freqs)-2)
 ## set lower and upper limits too high so dff indexing never goes out of range
 dff_bins = np.insert(dff_bins, 0, np.NINF)
 dff_bins = np.append(dff_bins, np.inf)
@@ -309,7 +309,7 @@ if not os.path.exists(data_root):
         print("Creating data directory: ",data_root)
         os.makedirs(data_root)
 
-for session, rewardThreshold in sessions:
+for session, reward_threshold in sessions:
     #breakpoint()
     
     if runRecording:
@@ -333,7 +333,7 @@ for session, rewardThreshold in sessions:
         rows, cols, channels = image.shape
         time.sleep(1) # Let behavior recording start first
         
-        config.set(cfg, 'rewardThreshold',str(rewardThreshold))
+        config.set(cfg, 'reward_threshold',str(reward_threshold))
         config.set('configsection', 'config', cfg)
         # save the configuration used in target data directory
         with open(session_root + '/config.ini', 'w', encoding="utf-8") as f:
@@ -365,7 +365,7 @@ for session, rewardThreshold in sessions:
         print("Start recording\n")
         
     ledLightTTL.on()
-    #sessDurSec = totalTrials * (failRestDuration + maxTrialDur)
+    #sessDurSec = total_trials * (failrest_duration + maxTrialDur)
     #lightTmr = Timer(1,timed_led, args=(ledLightTTL,sessDurSec))
     #lightTmr.start()
     fps = FPS().start()
@@ -386,7 +386,7 @@ for session, rewardThreshold in sessions:
     sinsource.stop()
     #############
     
-    while image is not None and nTrial <= totalTrials:
+    while image is not None and nTrial <= total_trials:
         start = time.time()
         
         image = vs.get_image()
@@ -426,12 +426,12 @@ for session, rewardThreshold in sessions:
         #freq = int(freqs[nTrial-1])
         if runTrial:
             tr = nTrial
-            restDuration = failRestDuration
+            rest_duration = failrest_duration
             # relative  dff should be greater than the threshold
             # and current reward should be atleast 1 sec apart from previous
             ## NORMAL REWARDS
             if sessionType == clh.SessionType.normal_audio_normal_reward:
-                deliverReward = relAvgDffDelayed > rewardThreshold
+                deliverReward = relAvgDffDelayed > reward_threshold
             ## RANDOM REWARDS in trial periods
             if sessionType == clh.SessionType.no_audio_random_reward:
                 deliverReward = np.random.choice(np.arange(0, 2), p=[0.998, 0.002])
@@ -443,13 +443,13 @@ for session, rewardThreshold in sessions:
                 #rest = True
                 #runTrial = False
                 print("RelAvgDff is: ",relAvgDffDelayed)
-                print("Rew threshold is: ",rewardThreshold)
+                print("Rew threshold is: ",reward_threshold)
                 print('total rewards: ' + str(totRewards), end="\n")
                 t2 = Thread(target=blink_led, args=(ledReward, 0.3))
                 t2.start()
                 lastRewTime = time.time()
                 runTrial = False
-                restDuration = successRestDuration
+                rest_duration = successrest_duration
             
             elif time.time() - trialTimer >= maxTrialDur:
                 runTrial = False
@@ -467,7 +467,7 @@ for session, rewardThreshold in sessions:
             rest = True
             runTrial = False
 
-            if rest and time.time() - restTimer < restDuration:
+            if rest and time.time() - restTimer < rest_duration:
                 freq = 0
                 tr = 0
                 audio = 0
@@ -483,18 +483,18 @@ for session, rewardThreshold in sessions:
                     sinsource.start()
     
                     # check if adaptive threshold is enabled every 30 seconds
-        if adaptiveThreshold and time.time() - rewardThreshTimer > 30:
+        if adaptive_threshold and time.time() - rewardThreshTimer > 30:
             # if more than 1 reward dispensed in last epoch, increase the threshold
             if rewardsInEpoch > 1:
-                rewardThreshold += 0.002
+                reward_threshold += 0.002
             # if no reward was dispensed in last epoch, decrease the threshold
             if rewardsInEpoch ==0:
-                rewardThreshold -= 0.002
+                reward_threshold -= 0.002
 
             rewardsInEpoch = 0
             rewardThreshTimer = time.time()
             # regenerate the dff bins to frequency mappings
-            dff_bins = np.linspace(-rewardThreshold, rewardThreshold, len(freqs)-2)
+            dff_bins = np.linspace(-reward_threshold, reward_threshold, len(freqs)-2)
             dff_bins = np.insert(dff_bins, 0, np.NINF)
             dff_bins = np.append(dff_bins, np.inf)
         
@@ -511,7 +511,7 @@ for session, rewardThreshold in sessions:
                       str(rois[1].avgDff) + '\t' +
                       str(relAvgDff) + '\t' +
                       str(freq) + '\t' +
-                      str(rewardThreshold) + '\t' +
+                      str(reward_threshold) + '\t' +
                       str(reward) + '\t' +
                       str(tr) + '\t' +
                       str(audio) + '\t' +
@@ -550,8 +550,8 @@ for session, rewardThreshold in sessions:
                      headers[5]: fps.elapsed(),
                      headers[6]: fps.fps(),
                      headers[7]: dffHistory,
-                     headers[8]: nTones,
-                     headers[9]: rewardThreshold,
+                     headers[8]: n_tones,
+                     headers[9]: reward_threshold,
                      headers[10]: totRewards,
                      headers[11]: audio_tr_prob,
                      headers[12]: sessionType.name})
