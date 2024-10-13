@@ -59,7 +59,7 @@ iso = int(cfgDict['iso'])
 #dff_hostory is in seconds. Multiply with framerate to get array length
 len_joint_history = int(cfgDict['joint_history_sec']) * fr
 anchor = cvui.Point()
-control_joint = cfgDict['control_joint']
+control_point = cfgDict['control_point']
 start_center = list(map(int, cfgDict['start_center'].split(',')))
 target_center = list(map(int, cfgDict['target_center'].split(',')))
 ppmm = float(cfgDict['ppmm'])
@@ -201,7 +201,7 @@ dlc_proc            = Processor()
 dlc_live            = DLCLive(dlc_model_path, processor=dlc_proc, display=False)
 all_joints          = dlc_live.cfg['all_joints']
 all_joints_names    = dlc_live.cfg['all_joints_names']
-control_joint_ix    = all_joints_names.index(control_joint)
+control_point_ix    = all_joints_names.index(control_point)
 dlc_live.init_inference(image)
 
 GPIO.output(ledLightTTL, GPIO.HIGH)
@@ -314,7 +314,7 @@ for session, reward_threshold_mm in sessions:
     image = vs.get_image()
     image = image[-res[1]:, -res[0]:, :]
     pose = dlc_live.get_pose(image)
-    cj_prev = pose[control_joint_ix][0:2]
+    cj_prev = pose[control_point_ix][0:2]
 
     #send TTL pulse for brain imaging to start recording
     board.digitalWrite(pinBrainTTL, "HIGH")
@@ -378,9 +378,9 @@ for session, reward_threshold_mm in sessions:
         # for roi in rois:
         #     cv2.circle(image, (roi.x, roi.y), radius=roi.r, color=roi.color, thickness=2)
             
-        cj_speed = math.dist(cj_prev, pose[control_joint_ix][0:2])
-        # cj_target_dist = math.dist(target_center, pose[control_joint_ix][0:2])
-        # cj_start_dist = math.dist(start_center, pose[control_joint_ix][0:2])
+        cj_speed = math.dist(cj_prev, pose[control_point_ix][0:2])
+        # cj_target_dist = math.dist(target_center, pose[control_point_ix][0:2])
+        # cj_start_dist = math.dist(start_center, pose[control_point_ix][0:2])
         
         cj_speed_reward_que.append(cj_speed)
         cj_speed_delayed = cj_speed_reward_que.popleft()
@@ -514,7 +514,7 @@ for session, reward_threshold_mm in sessions:
         
         video_writer.write(imagecopy)
         # image_storage.append(image[None])
-        cj_prev = pose[control_joint_ix][0:2]
+        cj_prev = pose[control_point_ix][0:2]
 
         sttime = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
         logFile.write(str(fps._numFrames) + '\t' +
@@ -553,7 +553,7 @@ for session, reward_threshold_mm in sessions:
         imagecopy= np.copy(image)
         pose = dlc_live.get_pose(image)
         fps.update()
-        cj_speed = math.dist(cj_prev, pose[control_joint_ix][0:2])
+        cj_speed = math.dist(cj_prev, pose[control_point_ix][0:2])
         video_writer.write(imagecopy)
         sttime = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
         logFile.write(str(fps._numFrames) + '\t' +
