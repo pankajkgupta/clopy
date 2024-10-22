@@ -1,13 +1,19 @@
-#%%%% use trials_df and plot data stats and performance
-# %%
+"""
+Created on Thu Jul 25 12:09:03 2024
+use trials_df and plot data stats and performance
+Requires file clmf_df_speed_daily_all.pkl clmf_df_beh_log_daily_all.pkl, clmf_avg_dff_response_daily.pkl
+Please download from here-https://drive.google.com/drive/folders/1eq0muLtc36jcU4sUy8fVOSmN4dxVxdn8?usp=sharing
+@author: pankaj gupta
+"""
 import os
 import platform
 import sys
 from os.path import dirname, realpath
-
+filepath = realpath(__file__)
+dir_of_file = dirname(filepath)
+parent_dir_of_file = dirname(dir_of_file)
+sys.path.append(parent_dir_of_file)
 import matplotlib.pyplot as plt
-# import matplotlib.cm as cm
-# from matplotlib import colors
 import matplotlib
 matplotlib.use('agg')
 from matplotlib.backends.backend_pdf import PdfPages
@@ -19,11 +25,6 @@ import pingouin as pg
 from scipy.stats import f_oneway
 from statannotations.Annotator import Annotator
 import itertools
-
-filepath = realpath(__file__)
-dir_of_file = dirname(filepath)
-parent_dir_of_file = dirname(dir_of_file)
-sys.path.append(parent_dir_of_file)
 import tifffile as tif
 import pandas as pd
 import seaborn as sns
@@ -253,8 +254,6 @@ if os.path.isfile(file_trials_df_csv):
     [(1, 'grp1'), (5, 'grp1')],
     [(4, 'grp1'), (5, 'grp1')],
     [(5, 'grp1'), (6, 'grp1')],
-    # [(5, 'grp1'), (10, 'grp1')],
-    
     [(1, 'grp3'), (4, 'grp3')],
     ]
     # annotator = Annotator(ax, pairs, data=successrate_by_mouseid, x='day', y='reward')
@@ -310,9 +309,6 @@ if os.path.isfile(file_kld_df_csv):
         plt.title(grp + ' Kullback-Leibler Divergence scores', fontsize=14)
         plt.tight_layout();
         pp.savefig(fig); plt.close()
-
-#%%     Requires file df_speed_daily_all.pkl df_beh_log_daily_all.pkl, 
-#%      Please download from here-https://drive.google.com/drive/folders/1eq0muLtc36jcU4sUy8fVOSmN4dxVxdn8?usp=sharing
 
 # correlation matrix of paw speeds on each trial
 

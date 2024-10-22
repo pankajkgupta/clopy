@@ -1,17 +1,12 @@
 # %%
 '''
-**Notebook to analyse 1ROI experiment.**
+**Script to analyse and create CLNF experiment figures.**
+Requires clnf_sessions_df.csv
 '''
 
 # %%
 import os
 import platform
-
-data_root =  '/home/pankaj/teamshare/pkg/closedloop_fluorescence_data/'
-processing_root = '/home/pankaj/teamshare/pkg/closedloop_processing/'
-outdir = '/home/pankaj/teamshare/pkg/outputs/closed_loop_pi/'
-
-# %%
 import sys
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 parentdir = os.path.dirname(CURRENT_DIR)
@@ -78,28 +73,13 @@ import argparse
 import pickle
 import matplotlib
 matplotlib.use('Agg')
-# ['GTK3Agg', 'GTK3Cairo', 'MacOSX', 'nbAgg', 'Qt4Agg', 'Qt4Cairo', 'Qt5Agg', 'Qt5Cairo', 'TkAgg', 'TkCairo', 'WebAgg', 'WX', 'WXAgg', 'WXCairo', 'agg', 'cairo', 'pdf', 'pgf', 'ps', 'svg', 'template']
 
-
+data_root =  '/home/pankaj/teamshare/pkg/closedloop_fluorescence_data/'
+outdir = '/home/pankaj/teamshare/pkg/outputs/closed_loop_pi/'
 # %%
 tmr = TicToc()
 dff_response_daily_all = []
-# %%
-# Initiate the parser
-parser = argparse.ArgumentParser()
-# Add long and short argument
-parser.add_argument("--process_mouse", "-n", required=False, help="Folder name to process")
-parser.add_argument("--process_dir", "-d", type=int, required=False, help="Set recording dir to process")
-# Read arguments from the command line
-args = parser.parse_args()
-if args.process_mouse: # Check for --name
-    print("Process mouse id %s" % args.process_mouse)
-if args.process_dir: # Check for --day
-    print("Process dir %s" % args.process_dir)
 
-# process_mouse = []
-# if len(sys.argv) == 2:
-#     process_mouse = sys.argv[1]
 df_beh_log_daily_all = pd.DataFrame()
 sessions_df = pd.DataFrame(columns=['mouse_id', 'cal_day', 'day', 'sex', 'roi_type', 'roi_rule', 'trials', 'rewards', 'auc', 'target_var', 'exp_label', 'group'])
 sessions_df = pd.DataFrame({'mouse_id': pd.Series(dtype='str'),

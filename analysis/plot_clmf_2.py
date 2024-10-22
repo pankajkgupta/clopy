@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Jul 25 12:09:03 2024
-Requires dff responses file clmf_avg_dff_response_daily.pkl
-@author: pankaj
+Requires file clmf_df_speed_daily_all.pkl clmf_df_beh_log_daily_all.pkl, clmf_avg_dff_response_daily.pkl
+Please download from here-https://drive.google.com/drive/folders/1eq0muLtc36jcU4sUy8fVOSmN4dxVxdn8?usp=sharing
+@author: pankaj gupta
 """
 import os
 import platform
