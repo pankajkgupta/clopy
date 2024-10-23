@@ -10,6 +10,7 @@ Click this to watch an overview
 [![CLoPy](<image path>)](<youtube URL>)
 
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20230728121232_rewbehbrain20594.gif?raw=true)
+![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20231004180719_rewbehbrain9898.gif?raw=true)
 
 
 How-to
