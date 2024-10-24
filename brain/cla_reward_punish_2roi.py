@@ -22,7 +22,7 @@ from gpiozero import LED
 import cvui
 import os
 import tables
-import ClosedLoopHelper2ROI as clh
+import helper as clh
 import roi_manager
 from collections import deque
 import re
