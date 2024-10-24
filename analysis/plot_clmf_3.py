@@ -78,76 +78,10 @@ corrmat_file.close()
 
 ppmm_brain = 14.56
 pp = PdfPages(out_dir + os.path.basename(__file__).split('.')[0] + '_summary_stats.pdf')
-for expt in data_list:
-    mouse_id, grp = expt
     
-    bregma_loc = {'x': 64, 'y': 64}
-    bregma = Position(bregma_loc['y'], bregma_loc['x'])
-    seeds = generate_seeds(bregma, clmf_seeds_mm, ppmm_brain, 'u')
-    ### this block plots corrmat during trial, rest and their difference on each day
-    for day in days:
-        print(mouse_id + ' ' + grp + ' ' + str(day))
-        df = df_corrmat_daily_all[(df_corrmat_daily_all.mouse_id == mouse_id) &
-                                  (df_corrmat_daily_all.group == grp) &
-                                  (df_corrmat_daily_all.day == day)]
-        if df.empty:
-            continue
-        fig = plt.figure(figsize=(15, 10))
-        plt.subplot(1, 3, 1); sns.heatmap(df.reward_corrmat.values[0], center=0, linewidths=.5, cmap='coolwarm', 
-                                          vmin=0, vmax=1, square=True, xticklabels=seeds.keys(),
-                                          yticklabels=seeds.keys(), cbar_kws={"shrink": .5, "orientation":'horizontal'})
-        plt.title(mouse_id + ' ' + grp + ' ' + str(day )+ ' reward corr.')
-        plt.subplot(1, 3, 2); sns.heatmap(df.rest_corrmat.values[0], center=0, linewidths=.5, cmap='coolwarm', 
-                                          vmin=0, vmax=1, square=True, xticklabels=seeds.keys(),
-                                          yticklabels=seeds.keys(), cbar_kws={"shrink": .5, "orientation":'horizontal'})
-        plt.title(mouse_id + ' ' + grp + ' ' + str(day)+ ' rest corr.')
-        plt.subplot(1, 3, 3); sns.heatmap(df.reward_corrmat.values[0]-df.rest_corrmat.values[0], center=0, linewidths=.5, cmap='coolwarm', 
-                                          square=True, xticklabels=seeds.keys(),
-                                          yticklabels=seeds.keys(), cbar_kws={"shrink": .5, "orientation":'horizontal'})
-        plt.title(mouse_id + ' ' + grp + ' ' + str(day) + ' reward - rest corr.')
-        plt.tight_layout(); pp.savefig(fig); plt.close()
-        
-    
-    # %% plot difference of corrmat during trial on each day
-    df = df_corrmat_daily_all[(df_corrmat_daily_all.mouse_id == mouse_id) & 
-                              (df_corrmat_daily_all.group == grp)]
-    if df.empty:
-        print(mouse_id + ' ' + grp + ' No data')
-        continue
-    
-    diffrewardmat = np.stack(df['reward_corrmat'].values); diffrewardmat = np.diff(diffrewardmat, axis=0)
-    vmin = np.nanquantile(diffrewardmat, 0.2); vmax = np.quantile(diffrewardmat, 0.95)
-    fig = plt.figure(figsize=(18, 6))
-    for i in np.arange(diffrewardmat.shape[0]):
-        plt.subplot(1, diffrewardmat.shape[0], i+1); ax=sns.heatmap(diffrewardmat[i], center=0, vmin=vmin, vmax=vmax, linewidths=.5, cmap='coolwarm', square=True,
-                                                      xticklabels=seeds.keys(), yticklabels=seeds.keys(), cbar_kws={"shrink":.5, "orientation":'horizontal'})
-    plt.title(mouse_id + ' ' + grp + ' difference of correlations during trial, over days')
-    plt.tight_layout(); pp.savefig(fig); plt.close()
-    # %% plot difference of corrmat during rest on each day
-    df = df_corrmat_daily_all[(df_corrmat_daily_all.mouse_id == mouse_id) & 
-                              (df_corrmat_daily_all.group == grp)]
-    if df.empty:
-        print(mouse_id + ' ' + grp + ' No data')
-        continue
-    
-    diffrestmat = np.stack(df['rest_corrmat'].values); diffrestmat = np.diff(diffrestmat, axis=0)
-    vmin = np.nanquantile(diffrestmat, 0.2); vmax = np.quantile(diffrestmat, 0.95)
-    fig = plt.figure(figsize=(18, 6))
-    for i in np.arange(diffrestmat.shape[0]):
-        plt.subplot(1, diffrestmat.shape[0], i+1); ax=sns.heatmap(diffrestmat[i], center=0, vmin=vmin, vmax=vmax, linewidths=.5, cmap='coolwarm', square=True,
-                                                      xticklabels=seeds.keys(), yticklabels=seeds.keys(), cbar_kws={"shrink":.5, "orientation":'horizontal'})
-    plt.title(mouse_id + ' ' + grp + ' difference of correlations during rest, over days')
-    plt.tight_layout(); pp.savefig(fig); plt.close()
-    #%% vector operation: subtract correlation matrices during trial and rest on all days, stack the result
-    diffmat = np.stack(df.reward_corrmat.values) - np.stack(df.rest_corrmat.values)
-    vmin = np.nanquantile(diffmat, 0.2); vmax = np.quantile(diffmat, 0.95)
-    ## plot each of the difference matrix in the stack we created above
-    fig = plt.figure(figsize=(18, 6))
-    for i in np.arange(diffmat.shape[0]):
-        plt.subplot(1, diffmat.shape[0], i+1); ax=sns.heatmap(diffmat[i], center=0, vmin=vmin, vmax=vmax, linewidths=.5, cmap='coolwarm', square=True,
-                                                      xticklabels=seeds.keys(), yticklabels=seeds.keys(), cbar_kws={"shrink":.5, "orientation":'horizontal'})
-    plt.title(mouse_id + ' ' + grp + ' difference of correlations between trial and rest, over days')
-    plt.tight_layout(); pp.savefig(fig); plt.close()
+bregma_loc = {'x': 64, 'y': 64}
+bregma = Position(bregma_loc['y'], bregma_loc['x'])
+seeds = generate_seeds(bregma, clmf_seeds_mm, ppmm_brain, 'u')
     
 #%% p-value matrix of statistical test
 data_list = [
@@ -158,25 +92,6 @@ data_list = [
 days = [1,2,3,4,5,6,7,8,9,10]
 mouse_list = [d[0] for d in data_list]
 groups = np.unique([d[1] for d in data_list])
-
-# difference of average corrmats during task and rest on each day
-for grp in groups:
-
-    aa1 = np.stack([np.mean(df_corrmat_daily_all[(df_corrmat_daily_all.mouse_id.isin(mouse_list)) & 
-                                        (df_corrmat_daily_all.group == grp) &
-                                        (df_corrmat_daily_all.day == day)]['reward_corrmat'].values) for day in days])
-    aa2 = np.stack([np.mean(df_corrmat_daily_all[(df_corrmat_daily_all.mouse_id.isin(mouse_list)) & 
-                                        (df_corrmat_daily_all.group == grp) &
-                                        (df_corrmat_daily_all.day == day)]['rest_corrmat'].values) for day in days])
-    aa3 = aa1-aa2
-    vmin = np.nanquantile(aa3, 0.2); vmax = np.quantile(aa3, 0.95)
-    ## plot each of the difference matrix in the stack we created above
-    fig = plt.figure(figsize=(18, 6))
-    for i in np.arange(aa3.shape[0]):
-        plt.subplot(1, aa3.shape[0], i+1); ax=sns.heatmap(aa3[i], center=0, vmin=vmin, vmax=vmax, linewidths=.5, cmap='coolwarm', square=True,
-                                                      xticklabels=seeds.keys(), yticklabels=seeds.keys(), cbar_kws={"shrink":.5, "orientation":'horizontal'})
-    plt.title(grp + ' difference of correlations between trial and rest, over days')
-    plt.tight_layout(); pp.savefig(fig); plt.close()
 
 # Supplementary figure 3 average corrmat during trial on all days, each group
 for grp in groups:

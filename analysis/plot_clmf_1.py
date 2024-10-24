@@ -17,6 +17,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 matplotlib.use('agg')
 from matplotlib.backends.backend_pdf import PdfPages
+from matplotlib import colors
 import numpy as np
 from statannot import add_stat_annotation
 import pymannkendall as mk
@@ -41,6 +42,7 @@ import napari
 import pickle
 os.environ[ 'NUMBA_CACHE_DIR' ] = '/tmp/numba_cache/'
 import dlc2kinematics
+from statsmodels.stats.multitest import multipletests
 # from pygifsicle import optimize
 from get_clmf_data import \
     expt1_data_list, expt2_data_list, expt3_data_list
@@ -400,4 +402,334 @@ for g in groups:
     axs.set_yticklabels(np.append(['FLL_'+str(day) for day in days], ['FLR_'+str(day) for day in days]), rotation=0)
     plt.title(g + '  speed profile correlations')
     plt.tight_layout()
+
+
+
+
+#%%
+data_list = [('FW2_ai94', 'grp1'), 
+             ('FW22_ai94', 'grp1'), 
+             ('GT33_tta', 'grp1'), ('HA2+_tta', 'grp1'), ('GER2_ai94', 'grp1'), ('HYL3_tta', 'grp1'), 
+             ('GER2_ai94', 'grp2'), ('HYL3_tta', 'grp2'), 
+             ('GIL3_ai94', 'grp3'), 
+             ('GIR2_ai94', 'grp3')]
+days = [1,4,5,7,10]
+beh_fps = 30
+epochSize = 5*beh_fps # should be same as used in generating the pkl file
+t = np.arange(-epochSize, epochSize) / beh_fps
+
+file_dff_response_all_pkl = out_dir + os.sep + 'clmf_avg_dff_response_daily' + '.pkl'
+if not os.path.isfile(file_dff_response_all_pkl):
+    sys.exit('DFF responses file doesnt exist')
+
+dff_response_file = open(file_dff_response_all_pkl, 'rb')
+dff_response_daily_all = pickle.load(dff_response_file)
+dff_response_file.close()
+
+#%% Plot average DFF activity for each seed location, per day for all mice
+for expt in data_list:
+    mouse_id, grp = expt
+    for se in clmf_seeds_mm:
+        print(mouse_id + ' ' + grp + ' ' + se)
+        
+        df = dff_response_daily_all[(dff_response_daily_all.mouse_id == mouse_id) &
+                                    (dff_response_daily_all.group == grp) &
+                                    (dff_response_daily_all.seedname == se)]
+        if df.empty:
+            print('No data')
+            continue
+        
+        ## dff profiles at the seed location over the days
+        fig, axs = plt.subplots(1, 2, sharey=True, figsize=(12,5))
+        axs[0].set_title(mouse_id + ' ' + grp + ' ' + se + ' L', fontsize=14)
+        axs[1].set_title(mouse_id + ' ' + grp + ' ' + se + ' R', fontsize=14)
+        g1=sns.lineplot(data=np.stack([df[df.day==day]['reward_stack_l'].values[0].mean(axis=0) for day in days]).T, ax=axs[0], legend=False, palette='Greens');
+        # g1=sns.lineplot(data=np.stack([df[df.day==day]['rest_stack_l'].values[0].mean(axis=0) for day in days]).T, ax=axs[0], legend=False, palette='Reds');
+        g2=sns.lineplot(data=np.stack([df[df.day==day]['reward_stack_r'].values[0].mean(axis=0) for day in days]).T, ax=axs[1], palette='Greens');
+        # g2=sns.lineplot(data=np.stack([df[df.day==day]['rest_stack_r'].values[0].mean(axis=0) for day in days]).T, ax=axs[1], palette='Reds');
+        plt.legend(days)
+        plt.xlabel('Time (sec.)', fontweight='bold')
+        # plt.xticks(np.arange(0, len(t),45), t[::45])
+        g1.set_xticks(np.arange(0, len(t),60)) # <--- set the ticks first
+        g1.set_xticklabels(t[::60])
+        axs[0].axvline(epochSize, c='b')
+        axs[0].axvline(epochSize-beh_fps, c='g')
+        g2.set_xticks(np.arange(0, len(t),60)) # <--- set the ticks first
+        g2.set_xticklabels(t[::60])
+        axs[1].axvline(epochSize, c='b')
+        axs[1].axvline(epochSize-beh_fps, c='g')
+        plt.ylabel('DFF', fontweight='bold')
+        sns.despine(offset=10, trim=True)
+        # plt.yticks(fontsize=20)
+        plt.tight_layout();
+        pp.savefig(fig); plt.close()
+        
+        ## correlation matrix of dff responses at seedpixel over days
+        fig, axs = plt.subplots(1,2, sharey=True)
+        # im = axs[0].imshow(np.corrcoef(np.vstack([stk for stk in df['reward_stack_l']])), cmap='Greys');
+        # im = axs[1].imshow(np.corrcoef(np.vstack([stk for stk in df['reward_stack_r']])), cmap='Greys');
+        im = axs[0].imshow(np.corrcoef(np.vstack([stk.mean(axis=0) for stk in df['reward_stack_l']])), cmap='Greys');
+        im = axs[1].imshow(np.corrcoef(np.vstack([stk.mean(axis=0) for stk in df['reward_stack_r']])), cmap='Greys');
+        axs[0].set_title(mouse_id + ' ' + grp + ' ' + se + ' L', fontsize=14)
+        axs[0].set_xticks(np.arange(len(df['day'].unique()))); axs[0].set_xticklabels(df['day'].unique())
+        axs[0].set_yticks(np.arange(len(df['day'].unique()))); axs[0].set_yticklabels(df['day'].unique())
+        axs[1].set_title(mouse_id + ' ' + grp + ' ' + se + ' R', fontsize=14)
+        axs[1].set_xticks(np.arange(len(df['day'].unique()))); axs[1].set_xticklabels(df['day'].unique())
+        fig.colorbar(im, ax=axs.ravel().tolist(), shrink=0.5)
+        pp.savefig(fig); plt.close()
+        
+        ## heatmap of dff responses at seedpixel over days
+        minimum = np.nanmin([np.nanquantile(np.vstack([stk.mean(axis=0) for stk in df['reward_stack_l']]), 0.2), -0.001]); maximum = np.nanquantile(np.vstack([stk.mean(axis=0) for stk in df['reward_stack_l']]), 0.90)
+        divnorm = colors.TwoSlopeNorm(vmin=minimum, vcenter=0, vmax=maximum)
+        fig, axs = plt.subplots(1,2, sharey=True, figsize=(12,4))
+        im = sns.heatmap(np.vstack([stk.mean(axis=0) for stk in df['reward_stack_l']]), cmap='coolwarm', vmin=minimum, vmax=maximum, center=0, ax=axs[0]);
+        im = sns.heatmap(np.vstack([stk.mean(axis=0) for stk in df['reward_stack_r']]), cmap='coolwarm', vmin=minimum, vmax=maximum, center=0, ax=axs[1]);
+        axs[0].set_title(mouse_id + ' ' + grp + ' ' + se + ' L', fontsize=14)
+        axs[0].set_xlabel('Time (s)'); axs[0].set_ylabel('Day')
+        axs[0].set_xticks(np.arange(0, len(t),30)); axs[0].set_xticklabels(t[::30])
+        axs[0].set_yticklabels(df['day'].unique())
+        axs[0].axvline(epochSize, c='k'); axs[0].axvline(epochSize-beh_fps, c='g')
+        axs[1].set_title(mouse_id + ' ' + grp + ' ' + se + ' R', fontsize=14)
+        axs[1].set_xlabel('Time (s)');
+        axs[1].axvline(0, color='gray'); #axs[1].set_yticklabels(clmf_seeds_mm.keys())
+        axs[1].set_xticks(np.arange(0, len(t),30)); axs[1].set_xticklabels(t[::30])
+        axs[1].axvline(epochSize, c='k'); axs[1].axvline(epochSize-beh_fps, c='g')
+        pp.savefig(fig); plt.close()
+    
+    ## seedpix corr during rewards on days
+    for day in days:
+        df = dff_response_daily_all[(dff_response_daily_all.mouse_id == mouse_id) &
+                                    (dff_response_daily_all.group == grp) &
+                                    (dff_response_daily_all.day == day)]
+        
+        fig, axs = plt.subplots(1,1, sharey=True)
+        im = sns.heatmap(np.corrcoef(np.vstack([[stk.mean(axis=0) for stk in df['reward_stack_l']], [stk.mean(axis=0) for stk in df['reward_stack_r']]])), cmap='Greys', vmin=0, vmax=1);
+        axs.set_title(mouse_id + ' ' + grp + ' ' + str(day) + '  seedpix corr rewards', fontsize=14)
+        axs.set_xticklabels(np.concatenate([df.seedname.values + '_L', df.seedname.values + '_R']), rotation=90)
+        axs.set_yticklabels(np.concatenate([df.seedname.values + '_L', df.seedname.values + '_R']), rotation=0)
+        pp.savefig(fig); plt.close()
+        
+    ## heatmap of dff activity around reward on days
+    df = dff_response_daily_all[(dff_response_daily_all.mouse_id == mouse_id) & (dff_response_daily_all.group == grp)]
+    minimum = np.nanmin([np.nanquantile(np.vstack([stk.mean(axis=0) for stk in df['reward_stack_l']]), 0.2), -0.001]); maximum = np.nanquantile(np.vstack([stk.mean(axis=0) for stk in df['reward_stack_l']]), 0.90)
+    divnorm = colors.TwoSlopeNorm(vmin=minimum, vcenter=0, vmax=maximum)
+    for day in days:
+        df = dff_response_daily_all[(dff_response_daily_all.mouse_id == mouse_id) &
+                                    (dff_response_daily_all.group == grp) &
+                                    (dff_response_daily_all.day == day)]
+        
+        fig, axs = plt.subplots(1,1, sharey=True)
+        im = sns.heatmap(np.vstack([[stk.mean(axis=0) for stk in df['reward_stack_l']], [stk.mean(axis=0) for stk in df['reward_stack_r']]]), cmap='Greys', vmin=minimum, vmax=maximum);
+        axs.set_title(mouse_id + ' ' + grp + ' ' + str(day) + '  dff response', fontsize=14)
+        axs.set_xticks(np.arange(0, len(t),30)); axs.set_xticklabels(t[::30])
+        axs.set_yticklabels(np.concatenate([df.seedname.values + '_L', df.seedname.values + '_R']), rotation=0)
+        axs.axvline(epochSize, c='c'); axs.axvline(epochSize-beh_fps, c='g')
+        pp.savefig(fig); plt.close()
+        
+#%% Plot max dff values before reward and before trial start for all mice combined
+data_list = [('FW2_ai94', 'grp1'), 
+             ('FW22_ai94', 'grp1'), 
+             ('GT33_tta', 'grp1'), ('HA2+_tta', 'grp1'), ('GER2_ai94', 'grp1'), ('HYL3_tta', 'grp1'), 
+             ('GER2_ai94', 'grp2'), ('HYL3_tta', 'grp2'), 
+             ('GIR2_ai94', 'grp3')]
+days = [1,2,3,4,5,6,7,8,9,10]
+# First build a dataframe with max dff values for all mice in all groups we can plot by groups later
+for expt in data_list:
+    mouse_id, grp = expt
+    for se in clmf_seeds_mm:
+        for day in days:
+            df = dff_response_daily_all.loc[(dff_response_daily_all.mouse_id == mouse_id) &
+                                       (dff_response_daily_all.group == grp) &
+                                       (dff_response_daily_all.day == day) &
+                                       (dff_response_daily_all.seedname == se)]
+            if df.empty:
+                print('No data')
+                continue
+            
+            
+            dff_response_daily_all.loc[(dff_response_daily_all.mouse_id == mouse_id) &
+                                        (dff_response_daily_all.group == grp) &
+                                        (dff_response_daily_all.day == day) &
+                                        (dff_response_daily_all.seedname == se), ['max_prereward_avg_l']] = np.max(df['reward_stack_l'].values[0].mean(axis=0)[int(epochSize/2):epochSize])
+            dff_response_daily_all.loc[(dff_response_daily_all.mouse_id == mouse_id) &
+                                        (dff_response_daily_all.group == grp) &
+                                        (dff_response_daily_all.day == day) &
+                                        (dff_response_daily_all.seedname == se), ['max_prereward_avg_r']] = np.max(df['reward_stack_r'].values[0].mean(axis=0)[int(epochSize/2):epochSize])
+            dff_response_daily_all.loc[(dff_response_daily_all.mouse_id == mouse_id) &
+                                        (dff_response_daily_all.group == grp) &
+                                        (dff_response_daily_all.day == day) &
+                                        (dff_response_daily_all.seedname == se), ['max_postreward_avg_l']] = np.max(df['reward_stack_l'].values[0].mean(axis=0)[epochSize:epochSize+int(epochSize/2)])
+            dff_response_daily_all.loc[(dff_response_daily_all.mouse_id == mouse_id) &
+                                        (dff_response_daily_all.group == grp) &
+                                        (dff_response_daily_all.day == day) &
+                                        (dff_response_daily_all.seedname == se), ['max_postreward_avg_r']] = np.max(df['reward_stack_r'].values[0].mean(axis=0)[epochSize:epochSize+int(epochSize/2)])
+            dff_response_daily_all.loc[(dff_response_daily_all.mouse_id == mouse_id) &
+                                        (dff_response_daily_all.group == grp) &
+                                        (dff_response_daily_all.day == day) &
+                                        (dff_response_daily_all.seedname == se), ['max_rest_avg_l']] = np.max(df['rest_stack_l'].values[0].mean(axis=0)[int(epochSize/2):epochSize])
+            dff_response_daily_all.loc[(dff_response_daily_all.mouse_id == mouse_id) &
+                                        (dff_response_daily_all.group == grp) &
+                                        (dff_response_daily_all.day == day) &
+                                        (dff_response_daily_all.seedname == se), ['max_rest_avg_r']] = np.max(df['rest_stack_r'].values[0].mean(axis=0)[int(epochSize/2):epochSize])
+            
+mouse_list = [d[0] for d in data_list]
+grp = 'grp1'
+for se in clmf_seeds_mm:
+    df = dff_response_daily_all[(dff_response_daily_all.mouse_id.isin(mouse_list)) &
+                                (dff_response_daily_all.day.isin(days)) &
+                                (dff_response_daily_all.group == grp) & 
+                                (dff_response_daily_all.seedname == se)]
+    dfl = df.melt(id_vars=['day'], value_vars=['max_prereward_avg_l', 'max_rest_avg_l'], var_name='condition', value_name='DFF')
+    dfr = df.melt(id_vars=['day'], value_vars=['max_prereward_avg_r', 'max_rest_avg_r'], var_name='condition', value_name='DFF')
+
+    hue_plot_params = {
+        'data': dfl,
+        'x': 'day',
+        'y': 'DFF',
+        "hue": "condition",
+        "palette": 'husl'
+    }
+    pairs = [
+    [(1, 'max_prereward_avg_l'), (4, 'max_prereward_avg_l')],
+    [(4, 'max_prereward_avg_l'), (5, 'max_prereward_avg_l')]
+    ]
+    fig, axs = plt.subplots(1, 2, sharey=True, figsize=(12,6))
+    ax1 = sns.pointplot(**hue_plot_params, dodge=0.2, errorbar=('ci', 95), ax=axs[0])
+    ax2 = sns.pointplot(x='day', y='DFF', data=dfr, hue='condition', palette='husl', dodge=0.2, errorbar=('ci', 95), ax=axs[1])
+    plt.title(grp + ' ' + se)
+    sns.despine(offset=10, trim=True)
+    # plt.yticks(fontsize=20)
+    plt.tight_layout();
+    # Annotate the figure with stats
+    annotator = Annotator(ax1, pairs, **hue_plot_params)
+    # # test: Brunner-Munzel, Levene, Mann-Whitney, Mann-Whitney-gt, Mann-Whitney-ls, t-test_ind, t-test_welch, t-test_paired, Wilcoxon, Kruskal
+    # # comparisons_correction: Bonferroni, Holm-Bonferroni, Benjamini-Hochberg, Benjamini-Yekutieli
+    annotator.configure(test='Mann-Whitney', show_test_name=True, comparisons_correction='Benjamini-Hochberg', text_format='star') #bejamini hochberg, Bonferroni
+    _, test_results = annotator.apply_and_annotate()
+    for res in test_results: print(res.data)
+    pp.savefig(fig); plt.close()
+
+
+
+
+
+
+
+file_corrmat_daily_all_pkl = out_dir + os.sep + 'clmf_corrmat_daily_all' + '.pkl'
+if not os.path.isfile(file_corrmat_daily_all_pkl):
+    sys.exit('Correlation matrices file doesnt exist')
+corrmat_file = open(file_corrmat_daily_all_pkl, 'rb')
+df_corrmat_daily_all = pickle.load(corrmat_file)
+corrmat_file.close()
+ 
+bregma_loc = {'x': 64, 'y': 64}
+bregma = Position(bregma_loc['y'], bregma_loc['x'])
+seeds = generate_seeds(bregma, clmf_seeds_mm, ppmm_brain, 'u')
+    
+#%% p-value matrix of statistical test
+data_list = [
+            ('FW2_ai94', 'grp1'), ('FW3_ai94', 'grp1'), ('FW22_ai94', 'grp1'), 
+             ('GT33_tta', 'grp1'), ('HA2+_tta', 'grp1'), ('GER2_ai94', 'grp1'),
+              ('GIL3_ai94', 'grp3'), ('GIR2_ai94', 'grp3')
+             ]
+days = [1,2,3,4,5,6,7,8,9,10]
+mouse_list = [d[0] for d in data_list]
+groups = np.unique([d[1] for d in data_list])
+
+# Supplementary figure 3 average corrmat during trial on all days, each group
+for grp in groups:
+
+    aa1 = np.mean(df_corrmat_daily_all[(df_corrmat_daily_all.mouse_id.isin(mouse_list)) & 
+                                        (df_corrmat_daily_all.group == grp)]['reward_corrmat'].values)
+    aa2 = np.mean(df_corrmat_daily_all[(df_corrmat_daily_all.mouse_id.isin(mouse_list)) & 
+                                        (df_corrmat_daily_all.group == grp)]['rest_corrmat'].values)
+    
+    aa3 = aa1-aa2
+    vmin = np.nanquantile(aa1, 0.2); vmax = np.quantile(aa3, 0.95)
+    ## plot each of the difference matrix in the stack we created above
+    fig = plt.figure(figsize=(6, 6))
+    plt.subplot(1, 1, 1); ax=sns.heatmap(aa1, center=0, vmin=vmin, vmax=vmax, linewidths=.5, 
+                                         cmap='coolwarm', square=True, xticklabels=seeds.keys(), 
+                                         yticklabels=seeds.keys(), cbar_kws={"shrink":.5, "orientation":'horizontal'})
+    plt.title(grp + ' mean seedpixel correlation during trial, all days')
+    plt.tight_layout(); pp.savefig(fig); plt.close()
+    
+    fig = plt.figure(figsize=(6, 6))
+    plt.subplot(1, 1, 1); ax=sns.heatmap(aa2, center=0, vmin=vmin, vmax=vmax, linewidths=.5, 
+                                         cmap='coolwarm', square=True, xticklabels=seeds.keys(), 
+                                         yticklabels=seeds.keys(), cbar_kws={"shrink":.5, "orientation":'horizontal'})
+    plt.title(grp + ' mean seedpixel correlation during rest, all days')
+    plt.tight_layout(); pp.savefig(fig); plt.close()
+    
+    fig = plt.figure(figsize=(6, 6))
+    plt.subplot(1, 1, 1); ax=sns.heatmap(aa3, center=0, vmin=vmin, vmax=vmax, linewidths=.5, 
+                                         cmap='coolwarm', square=True, xticklabels=seeds.keys(), 
+                                         yticklabels=seeds.keys(), cbar_kws={"shrink":.5, "orientation":'horizontal'})
+    plt.title(grp + ' difference of correlations between trial and rest, all days')
+    plt.tight_layout(); pp.savefig(fig); plt.close()
+    
+#%% Supplementary figure 3
+df_seeds_corrmat = pd.DataFrame()
+for expt in data_list:
+    mouse_id, grp = expt
+
+    for day in days:
+        df = df_corrmat_daily_all[(df_corrmat_daily_all.mouse_id == mouse_id) & 
+                                  (df_corrmat_daily_all.group == grp) &
+                                  (df_corrmat_daily_all.day == day)]
+        if df.empty:
+            print(mouse_id + ' ' + grp + ' No data')
+            continue
+        reward_corrmat = df['reward_corrmat'].values[0]
+        rest_corrmat = df['rest_corrmat'].values[0]
+        
+        for i, se1 in enumerate(seeds):
+            for j, se2 in enumerate(seeds):
+                df_seeds_corrmat = pd.concat([df_seeds_corrmat, pd.DataFrame({'mouse_id': mouse_id, 'group': grp, 
+                                                                 'day': day, 'condition': 'trial', 
+                                                                 'seed1': se1, 'seed2': se2, 
+                                                                 'correlation': reward_corrmat[i,j]}, index=[0])], 
+                                             ignore_index=True)
+                df_seeds_corrmat = pd.concat([df_seeds_corrmat, pd.DataFrame({'mouse_id': mouse_id, 'group': grp, 
+                                                                 'day': day, 'condition': 'rest', 
+                                                                 'seed1': se1, 'seed2': se2, 
+                                                                 'correlation': rest_corrmat[i,j]}, index=[0])], 
+                                             ignore_index=True)
+
+for grp in groups:
+    # initialize dict to hold pvalues of statistical test anova
+    pvalue_day_corrmat = np.ones((len(seeds), len(seeds)))
+    pvalue_condition_corrmat = np.ones((len(seeds), len(seeds)))
+    for i, se1 in enumerate(seeds):
+        for j, se2 in enumerate(seeds):
+            df = df_seeds_corrmat[(df_seeds_corrmat['seed1']==se1) 
+                                  & (df_seeds_corrmat['seed2']==se2) 
+                                  & (df_seeds_corrmat['group']==grp) 
+                                  # & (df_seeds_corrmat['condition']=='rest')
+                                  ].reset_index()
+            # repeated measure ANOVA because we have samples over days. this is two way anova 
+            # becasue we are adding condition as a variable too
+            res = pg.rm_anova(dv='correlation', within=['day', 'condition'], subject='mouse_id', data=df, detailed=True)
+            if 'p-unc' in res:
+                pvalue_day_corrmat[i,j] = res['p-unc'][0]
+                pvalue_condition_corrmat[i,j] = res['p-unc'][1]
+    
+    #### bonferroni correction
+    pvalue_day_corrmat_corrected = multipletests(pvalue_day_corrmat.flatten(), method='bonferroni')
+    fig = plt.figure(); ax=sns.heatmap(pvalue_day_corrmat_corrected[1].reshape(pvalue_day_corrmat.shape), linewidths=.5, cmap='Greens_r', square=True, 
+                                       vmin= 0.0001, vmax = 0.06, xticklabels=seeds.keys(), yticklabels=seeds.keys(), 
+                                       cbar_kws={"shrink":.5, "orientation":'horizontal'})
+    plt.title(grp + ' RM-ANOVA pvalues on correlation values over days')
+    pp.savefig(fig); plt.close()
+    
+    #### bonferroni correction
+    pvalue_condition_corrmat_corrected = multipletests(pvalue_condition_corrmat.flatten(), method='bonferroni')
+    fig = plt.figure(); ax=sns.heatmap(pvalue_condition_corrmat_corrected[1].reshape(pvalue_condition_corrmat.shape), linewidths=.5, cmap='Greens_r', square=True, 
+                                       vmin= 0.0001, vmax = 0.06, xticklabels=seeds.keys(), yticklabels=seeds.keys(), 
+                                       cbar_kws={"shrink":.5, "orientation":'horizontal'})
+    plt.title(grp + ' RM-ANOVA pvalues on correlation values between trial and rest, over days')
+    pp.savefig(fig); plt.close()
+
+
+print('done')
 pp.close()
