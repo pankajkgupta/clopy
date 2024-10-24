@@ -75,7 +75,7 @@ import matplotlib
 matplotlib.use('Agg')
 
 data_root =  '/home/pankaj/teamshare/pkg/closedloop_fluorescence_data/'
-outdir = '/home/pankaj/teamshare/pkg/outputs/closed_loop_pi/'
+outdir = './processed_data/'
 # %%
 tmr = TicToc()
 dff_response_daily_all = []
@@ -94,7 +94,7 @@ sessions_df = pd.DataFrame({'mouse_id': pd.Series(dtype='str'),
                             'target_var': float,
                             'exp_label': pd.Series(dtype='str'),
                             'group': pd.Series(dtype='str')})
-file_dff_response_all_pkl = outdir + os.sep + 'avg_dff_response_daily' + '.pkl'
+file_dff_response_all_pkl = outdir + os.sep + 'clnf_avg_dff_response_daily' + '.pkl'
 
 file_sessions_df_csv = outdir + os.sep +'clnf_sessions_df.csv'
 sessions_df = pd.read_csv(file_sessions_df_csv, dtype = {'mouse_id': str, 'cal_day': str, 'day': int, 'sex': str, 'roi_type': str,

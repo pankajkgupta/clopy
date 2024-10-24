@@ -56,7 +56,7 @@ from dtaidistance import dtw
 from helper import *
 
 data_root = '/home/pankaj/teamshare/pkg/closedloop_rig5_data/'
-out_dir = '/home/pankaj/teamshare/pkg/outputs/opto_stim/'
+out_dir = '../processed_data/'
 
 # to select data for plotting
 data_list = [
@@ -76,13 +76,13 @@ df_corrmat_daily_all = pickle.load(corrmat_file)
 corrmat_file.close()
 
 ppmm_brain = 14.56
-pp = PdfPages(out_dir + os.path.basename(__file__).split('.')[0] + '_stats.pdf')
+pp = PdfPages(out_dir + os.path.basename(__file__).split('.')[0] + '_summary_stats.pdf')
 for expt in data_list:
     mouse_id, grp = expt
     
     bregma_loc = {'x': 64, 'y': 64}
     bregma = Position(bregma_loc['y'], bregma_loc['x'])
-    seeds = generate_seeds(bregma, seeds_mm, ppmm_brain, 'u')
+    seeds = generate_seeds(bregma, clmf_seeds_mm, ppmm_brain, 'u')
     ### this block plots corrmat during trial, rest and their difference on each day
     for day in days:
         print(mouse_id + ' ' + grp + ' ' + str(day))

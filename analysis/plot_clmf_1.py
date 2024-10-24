@@ -47,7 +47,7 @@ from get_clmf_data import \
 from helper import *
 
 data_root = '/home/pankaj/teamshare/pkg/closedloop_rig5_data/'
-out_dir = '/home/pankaj/teamshare/pkg/outputs/opto_stim/'
+out_dir = '../processed_data/'
 
 data_list = expt1_data_list
 data_list.extend(expt2_data_list)
@@ -73,7 +73,7 @@ mice_list = [e[0] for e in data_list]
 groups = [e[2] for e in data_list]
 cal_days = list(itertools.chain.from_iterable([e[1] for e in data_list]))
 
-pp = PdfPages(out_dir + os.path.basename(__file__).split('.')[0] + '_' + 'summary_stats.pdf')
+pp = PdfPages(out_dir + os.path.basename(__file__).split('.')[0] + '_summary_stats.pdf')
 #%%
 file_sessions_df_csv = out_dir + os.sep + 'clmf_sessions_df' + '.csv'
 if os.path.isfile(file_sessions_df_csv):
@@ -92,7 +92,7 @@ if os.path.isfile(file_sessions_df_csv):
         sessions_df_melted = a.melt(id_vars=['cal_day','day'], value_vars=['fll_totaldist', 'flr_totaldist'])
         fig = plt.figure();
         # gfg = sns.boxplot(x="day", y="value", hue="variable", data=sessions_df_melted)
-        gfg = sns.pointplot(x="day", y="value", hue="variable", data=sessions_df_melted, errorbar=('ci', 95), dodge=True, linewidth=2)
+        gfg = sns.pointplot(x="day", y="value", hue="variable", data=sessions_df_melted, errorbar=('ci', 95), dodge=True)
         gfg.legend(fontsize=15)
         sns.despine(offset=10, trim=True)
         plt.xlabel('Days', fontweight='bold', fontsize=14)
@@ -112,7 +112,7 @@ if os.path.isfile(file_sessions_df_csv):
         fig = plt.figure();
         # gfg = sns.boxplot(x="day", y="value", hue="variable", data=sessions_df_melted)
         # gfg = sns.lineplot(x="day", y="value", hue="variable", data=sessions_df_melted, err_style="bars", alpha=0.5)
-        gfg = sns.pointplot(x="day", y="value", hue="variable", data=sessions_df_melted, errorbar=('ci', 95), dodge=True, linewidth=2)
+        gfg = sns.pointplot(x="day", y="value", hue="variable", data=sessions_df_melted, errorbar=('ci', 95), dodge=True)
         gfg.legend(fontsize=15)
         sns.despine(offset=10, trim=True)
         plt.xlabel('Days', fontweight='bold', fontsize=14)
@@ -126,7 +126,7 @@ if os.path.isfile(file_sessions_df_csv):
     #%% Plot success rate over days for each group
     sessions_df['performance'] = (sessions_df['rewards'] - sessions_df['rewards'].min()) / (sessions_df['rewards'].max() - sessions_df['rewards'].min())
     fig = plt.figure(figsize=(12,8));
-    gfg = sns.pointplot(x="day", y="performance", hue="group", data=sessions_df, dodge=0.2, linewidth=1, markersize=5)
+    gfg = sns.pointplot(x="day", y="performance", hue="group", data=sessions_df, dodge=0.2)
     gfg.legend(fontsize=15)
     sns.despine(offset=10, trim=True)
     plt.xlabel('Days', fontweight='bold', fontsize=20)
@@ -189,24 +189,6 @@ if os.path.isfile(file_trials_df_csv):
             if ((trials_df['mouse_id'] == mouse_id) & (trials_df['cal_day'] == rec_dir)).any():
                 #row already exists, update all values except the manual_label
                 trials_df.loc[(trials_df['mouse_id'] == mouse_id) & (trials_df['cal_day'] == rec_dir), ['day']] = day
-
-    for grp in np.unique(groups):
-        print(grp)
-        a = trials_df[trials_df['group'].isin([grp])]
-        trials_df_melted = a.melt(id_vars=['cal_day','day'], value_vars=['fll_dist_prereward', 'flr_dist_prereward'])
-        fig = plt.figure(figsize=(8,5));
-        # gfg = sns.boxplot(x="day", y="value", hue="variable", data=trials_df_melted)
-        gfg = sns.pointplot(x="day", y="value", hue="variable", data=trials_df_melted, errorbar=('ci', 95), dodge=True, linewidth=2)
-        gfg.legend(fontsize=15)
-        sns.despine(offset=10, trim=True)
-        # plt.ylim([0,120])
-        plt.xlabel('Days', fontweight='bold', fontsize=14)
-        plt.xticks(trials_df.day.unique(), trials_df.day.unique() +1, fontsize=20)
-        plt.ylabel('Distance (mm)', fontweight='bold', fontsize=14)
-        plt.yticks(fontsize=20)
-        plt.title(grp + ': distance moved pre and post event', fontsize=14)
-        plt.tight_layout();
-        pp.savefig(fig); plt.close()
     
     #%%
     for grp in np.unique(groups):
@@ -215,8 +197,7 @@ if os.path.isfile(file_trials_df_csv):
         trials_df_melted = a.melt(id_vars=['cal_day','day'], value_vars=['fll_maxspeed_prereward', 'flr_maxspeed_prereward'])
         fig = plt.figure(figsize=(8,5));
         # gfg = sns.boxplot(x="day", y="value", hue="variable", data=trials_df_melted)
-        gfg = sns.pointplot(x="day", y="value", hue="variable", data=trials_df_melted, errorbar=('ci', 95), 
-                            dodge=True, linewidth=1, markersize=5) #husl, colorblind, Set1, bright 
+        gfg = sns.pointplot(x="day", y="value", hue="variable", data=trials_df_melted, errorbar=('ci', 95), dodge=True) #husl, colorblind, Set1, bright 
         gfg.legend(fontsize=15)
         sns.despine(offset=10, trim=True)
         # plt.ylim([0,120])
@@ -240,7 +221,7 @@ if os.path.isfile(file_trials_df_csv):
         "palette": 'husl'
     }
     fig = plt.figure(); 
-    ax = sns.pointplot(**hue_plot_params, dodge=0.2, linewidth=1)
+    ax = sns.pointplot(**hue_plot_params, dodge=0.2)
     sns.despine(offset=10, trim=True)
     plt.xlabel('Days', fontweight='bold', fontsize=14)
     plt.xticks(trials_df.day.unique(), trials_df.day.unique() +1, fontsize=20)
@@ -268,7 +249,7 @@ if os.path.isfile(file_trials_df_csv):
     fig = plt.figure(figsize=(8,5))
     # ax = sns.violinplot(x='day', y='tr_duration', hue='group', data=trials_df,inner="box",  palette="husl", linewidth=0.5, saturation=0.5)
     # ax = sns.lineplot(x='day', y='tr_duration', hue='group', data=trials_df, errorbar=('ci', 95), err_style="bars", markers = True, linewidth=2, alpha=0.5)
-    ax = sns.pointplot(x='day', y='tr_duration', hue='group', data=trials_df, errorbar=('ci', 95), linewidth=1, markersize=5)
+    ax = sns.pointplot(x='day', y='tr_duration', hue='group', data=trials_df, errorbar=('ci', 95))
     sns.despine(offset=10, trim=True)
     plt.xlabel('Day', fontweight='bold', fontsize=14)
     plt.xticks(trials_df.day.unique(), trials_df.day.unique() +1, fontsize=20)
@@ -312,8 +293,8 @@ if os.path.isfile(file_kld_df_csv):
 
 # correlation matrix of paw speeds on each trial
 
-file_df_speed_daily_all_pkl = out_dir + os.sep + 'df_speed_daily_all' + '.pkl'
-file_df_beh_log_daily_all_pkl = out_dir + os.sep + 'df_beh_log_daily_all' + '.pkl'
+file_df_speed_daily_all_pkl = out_dir + os.sep + 'clmf_df_speed_daily_all' + '.pkl'
+file_df_beh_log_daily_all_pkl = out_dir + os.sep + 'clmf_df_beh_log_daily_all' + '.pkl'
 df_speed_daily_all_file = open(file_df_speed_daily_all_pkl, 'rb')
 df_speed_daily_all = pickle.load(df_speed_daily_all_file)
 df_speed_daily_all_file.close()

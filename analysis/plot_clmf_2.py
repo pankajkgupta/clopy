@@ -26,33 +26,16 @@ import matplotlib
 from matplotlib import colors
 matplotlib.use('agg')
 from matplotlib.backends.backend_pdf import PdfPages
-from mpl_toolkits.axes_grid1 import ImageGrid
 import tifffile as tif
 import pandas as pd
 import pickle
 import seaborn as sns
-import seaborn_image as snsi
 from pathlib import Path
-import glob
-from tqdm import tqdm
-from scipy import signal
 import scipy.io as sio
-from scipy.ndimage import gaussian_filter
-from scipy.spatial.distance import cdist
-from skimage.util import montage
-from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import NMF
-from sklearn.decomposition import FactorAnalysis
-from sklearn.metrics.pairwise import euclidean_distances
 from sklearn.model_selection import GridSearchCV, train_test_split, KFold
-from sklearn.metrics import accuracy_score
-from sktime.classification.distance_based import KNeighborsTimeSeriesClassifier
-from sktime.classification.deep_learning.cnn import CNNClassifier
 from statannotations.Annotator import Annotator
 import imageio
 import argparse
-from configparser import ConfigParser
 from sty import fg, bg, ef, rs
 os.environ[ 'NUMBA_CACHE_DIR' ] = '/tmp/numba_cache/'
 import dlc2kinematics
@@ -63,7 +46,7 @@ from get_clmf_data import \
 from helper import *
 
 data_root = '/home/pankaj/teamshare/pkg/closedloop_rig5_data/'
-out_dir = '../data/'
+out_dir = '../processed_data/'
 
 data_list = [('FW2_ai94', 'grp1'), 
              ('FW22_ai94', 'grp1'), 
@@ -84,11 +67,11 @@ dff_response_file = open(file_dff_response_all_pkl, 'rb')
 dff_response_daily_all = pickle.load(dff_response_file)
 dff_response_file.close()
 
-pp = PdfPages(out_dir + os.path.basename(__file__).split('.')[0] + '_stats.pdf')
+pp = PdfPages(out_dir + os.path.basename(__file__).split('.')[0] + '_summary_stats.pdf')
 #%% Plot average DFF activity for each seed location, per day for all mice
 for expt in data_list:
     mouse_id, grp = expt
-    for se in seeds_mm:
+    for se in clmf_seeds_mm:
         print(mouse_id + ' ' + grp + ' ' + se)
         
         df = dff_response_daily_all[(dff_response_daily_all.mouse_id == mouse_id) &
@@ -150,7 +133,7 @@ for expt in data_list:
         axs[0].axvline(epochSize, c='k'); axs[0].axvline(epochSize-beh_fps, c='g')
         axs[1].set_title(mouse_id + ' ' + grp + ' ' + se + ' R', fontsize=14)
         axs[1].set_xlabel('Time (s)');
-        axs[1].axvline(0, color='gray'); #axs[1].set_yticklabels(seeds_mm.keys())
+        axs[1].axvline(0, color='gray'); #axs[1].set_yticklabels(clmf_seeds_mm.keys())
         axs[1].set_xticks(np.arange(0, len(t),30)); axs[1].set_xticklabels(t[::30])
         axs[1].axvline(epochSize, c='k'); axs[1].axvline(epochSize-beh_fps, c='g')
         pp.savefig(fig); plt.close()
@@ -195,7 +178,7 @@ days = [1,2,3,4,5,6,7,8,9,10]
 # First build a dataframe with max dff values for all mice in all groups we can plot by groups later
 for expt in data_list:
     mouse_id, grp = expt
-    for se in seeds_mm:
+    for se in clmf_seeds_mm:
         for day in days:
             df = dff_response_daily_all.loc[(dff_response_daily_all.mouse_id == mouse_id) &
                                        (dff_response_daily_all.group == grp) &
@@ -233,7 +216,7 @@ for expt in data_list:
             
 mouse_list = [d[0] for d in data_list]
 grp = 'grp1'
-for se in seeds_mm:
+for se in clmf_seeds_mm:
     df = dff_response_daily_all[(dff_response_daily_all.mouse_id.isin(mouse_list)) &
                                 (dff_response_daily_all.day.isin(days)) &
                                 (dff_response_daily_all.group == grp) & 

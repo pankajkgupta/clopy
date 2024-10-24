@@ -77,6 +77,20 @@ avgROI1TrialsNA = []
 avgROI2TrialsNA = []
 fr = []
 
+clmf_seeds_mm = {
+    "OB": {"ML": 1.15, "AP": 3.5, "arealabel":301},
+    "ALM": {"ML": 1.5, "AP": 2.5, "arealabel":198},
+    # "ALM": {"ML": 2, "AP": 2.4}, #https://www.nature.com/articles/nature08897
+    # "PMM": {"ML": 1.2, "AP": 0.3}, #https://www.nature.com/articles/nature08897
+    "M1": {"ML": 1.8603, "AP": 0.64181, "arealabel":15},
+    "M2": {"ML": 0.87002, "AP": 1.4205, "arealabel":21},
+    "FL": {"ML": 2.4526, "AP": -0.5668, "arealabel":57},
+    "HL": {"ML": 1.6942, "AP": -1.1457, "arealabel":43},
+    # "CFL": {"ML": 1.5, "AP": 0.25, "arealabel":21},
+    "BC": {"ML": 3.4569, "AP": -1.727, "arealabel":36},
+    "V1": {"ML": 2.5168, "AP": -3.7678, "arealabel":150},
+    "RS": {"ML": 0.62043, "AP": -2.8858, "arealabel":255}}
+
 def clear_vars():
     global thresh, threshArray, timeArray, expectedRewardArray, actualRewardArray, threshCrossArray, spontThreshArray, \
         avgROI1Array, avgROI2Array, avgROI3Array, avgROI4Array, avgROI5Array, avgROI6Array, avgROI7Array, avgROI8Array, \
