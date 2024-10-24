@@ -236,8 +236,8 @@ for se in clmf_seeds_mm:
     [(4, 'max_prereward_avg_l'), (5, 'max_prereward_avg_l')]
     ]
     fig, axs = plt.subplots(1, 2, sharey=True, figsize=(12,6))
-    ax1 = sns.pointplot(**hue_plot_params, dodge=0.2, errorbar=('ci', 95), ax=axs[0], linewidth=1, markersize=5)
-    ax2 = sns.pointplot(x='day', y='DFF', data=dfr, hue='condition', palette='husl', dodge=0.2, errorbar=('ci', 95), ax=axs[1], linewidth=1, markersize=5)
+    ax1 = sns.pointplot(**hue_plot_params, dodge=0.2, errorbar=('ci', 95), ax=axs[0])
+    ax2 = sns.pointplot(x='day', y='DFF', data=dfr, hue='condition', palette='husl', dodge=0.2, errorbar=('ci', 95), ax=axs[1])
     plt.title(grp + ' ' + se)
     sns.despine(offset=10, trim=True)
     # plt.yticks(fontsize=20)

@@ -75,12 +75,10 @@ import matplotlib
 matplotlib.use('Agg')
 
 data_root =  '/home/pankaj/teamshare/pkg/closedloop_fluorescence_data/'
-outdir = './processed_data/'
+outdir = '../processed_data/'
 # %%
 tmr = TicToc()
-dff_response_daily_all = []
 
-df_beh_log_daily_all = pd.DataFrame()
 sessions_df = pd.DataFrame(columns=['mouse_id', 'cal_day', 'day', 'sex', 'roi_type', 'roi_rule', 'trials', 'rewards', 'auc', 'target_var', 'exp_label', 'group'])
 sessions_df = pd.DataFrame({'mouse_id': pd.Series(dtype='str'),
                             'cal_day': pd.Series(dtype='str'),
@@ -95,6 +93,19 @@ sessions_df = pd.DataFrame({'mouse_id': pd.Series(dtype='str'),
                             'exp_label': pd.Series(dtype='str'),
                             'group': pd.Series(dtype='str')})
 file_dff_response_all_pkl = outdir + os.sep + 'clnf_avg_dff_response_daily' + '.pkl'
+if not os.path.isfile(file_dff_response_all_pkl):
+    sys.exit('DFF responses file doesnt exist')
+dff_response_file = open(file_dff_response_all_pkl, 'rb')
+dff_response_daily_all = pickle.load(dff_response_file)
+dff_response_file.close()
+
+file_df_beh_log_daily_all_pkl = outdir + os.sep + 'clnf_df_beh_log_daily_all' + '.pkl'
+if not os.path.isfile(file_df_beh_log_daily_all_pkl):
+    sys.exit('Behavior daily log file doesnt exist')
+df_beh_log_daily_all_file = open(file_df_beh_log_daily_all_pkl, 'rb')
+df_beh_log_daily_all = pickle.load(df_beh_log_daily_all_file)
+df_beh_log_daily_all_file.close()
+
 
 file_sessions_df_csv = outdir + os.sep +'clnf_sessions_df.csv'
 sessions_df = pd.read_csv(file_sessions_df_csv, dtype = {'mouse_id': str, 'cal_day': str, 'day': int, 'sex': str, 'roi_type': str,

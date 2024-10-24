@@ -51,6 +51,7 @@ from configparser import ConfigParser
 from sty import fg, bg, ef, rs
 os.environ[ 'NUMBA_CACHE_DIR' ] = '/tmp/numba_cache/'
 import dlc2kinematics
+from statsmodels.stats.multitest import multipletests
 # import napari
 from dtaidistance import dtw
 from helper import *
