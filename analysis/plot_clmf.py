@@ -87,7 +87,7 @@ if os.path.isfile(file_sessions_df_csv):
     sessions_df = sessions_df[sessions_df['mouse_id'].isin( mice_list)]
     sessions_df = sessions_df[sessions_df['group'].isin( groups)]
     sessions_df = sessions_df[sessions_df['cal_day'].isin(cal_days)]
-    #%% Plot left and right paw movements over days
+    #%% Figure not included in paper: Plot left and right paw movements over days
     for grp in np.unique(groups):
         print(grp)
         a = sessions_df[sessions_df['group'].isin([grp])]
@@ -105,7 +105,7 @@ if os.path.isfile(file_sessions_df_csv):
         plt.tight_layout();
         pp.savefig(fig); plt.close()
     
-    #%% Left and right paw movement based rewards over days
+    #%% Figure not included in paper: Left and right paw movement based rewards over days
     for grp in np.unique(groups):
         print(grp)
         a = sessions_df[sessions_df['group'].isin([grp])]
@@ -125,7 +125,7 @@ if os.path.isfile(file_sessions_df_csv):
         plt.tight_layout();
         pp.savefig(fig); plt.close()
     
-    #%% Plot success rate over days for each group
+    #%% Figure 4B Plot success rate over days for each group
     sessions_df['performance'] = (sessions_df['rewards'] - sessions_df['rewards'].min()) / (sessions_df['rewards'].max() - sessions_df['rewards'].min())
     fig = plt.figure(figsize=(12,8));
     gfg = sns.pointplot(x="day", y="performance", hue="group", data=sessions_df, dodge=0.2)
@@ -139,7 +139,7 @@ if os.path.isfile(file_sessions_df_csv):
     plt.tight_layout();
     pp.savefig(fig); plt.close()
     
-    #%% Write statistical results summary in the pdf
+    #%% Statistical tests for Figure 4B Write statistical results summary in the pdf
     fig = plt.figure(figsize=(12,10))
     fig.clf()
     
@@ -184,7 +184,7 @@ if os.path.isfile(file_trials_df_csv):
     trials_df = trials_df[trials_df['group'].isin( groups)]
     trials_df = trials_df[trials_df['cal_day'].isin(cal_days)]
     
-    #%% re-assign 'day' column in sequential  order based on datasets includeddd
+    #%% re-assign 'day' column
     for expt in data_list:
         mouse_id, list_rec_dir, grp = expt        
         for day, rec_dir in enumerate(list_rec_dir):
@@ -192,7 +192,7 @@ if os.path.isfile(file_trials_df_csv):
                 #row already exists, update all values except the manual_label
                 trials_df.loc[(trials_df['mouse_id'] == mouse_id) & (trials_df['cal_day'] == rec_dir), ['day']] = day
     
-    #%%
+    #%% Figure 4D maximum speeds
     for grp in np.unique(groups):
         print(grp)
         a = trials_df[trials_df['group'].isin([grp])]
@@ -211,7 +211,7 @@ if os.path.isfile(file_trials_df_csv):
         plt.tight_layout();
         pp.savefig(fig); plt.close()
     
-    #%%
+    #%% Figure 4B success rate by group (another way to plot Figure 4B)
     trialcounts_by_mouseid_all = trials_df.groupby(['mouse_id', 'day', 'group'])['reward'].count()
     trialcounts_by_mouseid_rewarded = trials_df[trials_df.reward==1].groupby(['mouse_id', 'day', 'group'])['reward'].count()
     successrate_by_mouseid = (trialcounts_by_mouseid_rewarded / trialcounts_by_mouseid_all).reset_index()
@@ -247,7 +247,7 @@ if os.path.isfile(file_trials_df_csv):
     annotator.apply_and_annotate()
     pp.savefig(fig); plt.close()
     
-    #%%
+    #%% Figure 4C task latency
     fig = plt.figure(figsize=(8,5))
     # ax = sns.violinplot(x='day', y='tr_duration', hue='group', data=trials_df,inner="box",  palette="husl", linewidth=0.5, saturation=0.5)
     # ax = sns.lineplot(x='day', y='tr_duration', hue='group', data=trials_df, errorbar=('ci', 95), err_style="bars", markers = True, linewidth=2, alpha=0.5)
@@ -268,7 +268,7 @@ if os.path.isfile(file_trials_df_csv):
     plt.close()
     print('Done')
 
-#%% Requires kld_df.csv located under data directory
+#%% Supplementary figure 4B Requires kld_df.csv located under data directory
 bp_select = ['snout_top', 'fl_l', 'fl_r', 'hl_l', 'hl_r', 'tailbase_bottom']
 file_kld_df_csv = out_dir + os.sep + 'clmf_kld_df' + '.csv'
 if os.path.isfile(file_kld_df_csv):
@@ -293,7 +293,8 @@ if os.path.isfile(file_kld_df_csv):
         plt.tight_layout();
         pp.savefig(fig); plt.close()
 
-# correlation matrix of paw speeds on each trial
+
+#%% correlation matrix of paw speeds on each trial
 
 file_df_speed_daily_all_pkl = out_dir + os.sep + 'clmf_df_speed_daily_all' + '.pkl'
 file_df_beh_log_daily_all_pkl = out_dir + os.sep + 'clmf_df_beh_log_daily_all' + '.pkl'
@@ -319,7 +320,7 @@ days = [1,2,3,4,5,6,7,8,9,10]
 beh_fps=30
 bp_select = ['fl_l', 'fl_r', 'hl_l', 'hl_r', 'tailbase_bottom', 'tailbase_top']
 
-## per-group: total bodypart movement during trial over days
+#%% Figure 7D total bodypart movement during trial over days
 for g in groups:
     bodypart_distance_grp_stack = []
     for expt in data_list:
@@ -346,7 +347,7 @@ for g in groups:
     plt.title(g + ' bodyparts distances during trial')
     pp.savefig(fig); plt.close()
     
-## speed correlation matrix for each group (average) during rewards
+#%% Figure 6C speed correlation matrix for each group (average) during rewards
 for g in groups:
     speed_corrmat_stack = []
     for expt in data_list:
@@ -403,9 +404,6 @@ for g in groups:
     plt.title(g + '  speed profile correlations')
     plt.tight_layout()
 
-
-
-
 #%%
 data_list = [('FW2_ai94', 'grp1'), 
              ('FW22_ai94', 'grp1'), 
@@ -426,7 +424,7 @@ dff_response_file = open(file_dff_response_all_pkl, 'rb')
 dff_response_daily_all = pickle.load(dff_response_file)
 dff_response_file.close()
 
-#%% Plot average DFF activity for each seed location, per day for all mice
+#%% Figure 7A 7B Plot average DFF activity for each seed location, per day for all mice
 for expt in data_list:
     mouse_id, grp = expt
     for se in clmf_seeds_mm:
@@ -526,7 +524,7 @@ for expt in data_list:
         axs.axvline(epochSize, c='c'); axs.axvline(epochSize-beh_fps, c='g')
         pp.savefig(fig); plt.close()
         
-#%% Plot max dff values before reward and before trial start for all mice combined
+#%% Figure 7C Plot max dff values before reward and before trial start for all mice combined
 data_list = [('FW2_ai94', 'grp1'), 
              ('FW22_ai94', 'grp1'), 
              ('GT33_tta', 'grp1'), ('HA2+_tta', 'grp1'), ('GER2_ai94', 'grp1'), ('HYL3_tta', 'grp1'), 
@@ -610,11 +608,7 @@ for se in clmf_seeds_mm:
     pp.savefig(fig); plt.close()
 
 
-
-
-
-
-
+#%%
 file_corrmat_daily_all_pkl = out_dir + os.sep + 'clmf_corrmat_daily_all' + '.pkl'
 if not os.path.isfile(file_corrmat_daily_all_pkl):
     sys.exit('Correlation matrices file doesnt exist')
@@ -636,7 +630,7 @@ days = [1,2,3,4,5,6,7,8,9,10]
 mouse_list = [d[0] for d in data_list]
 groups = np.unique([d[1] for d in data_list])
 
-# Supplementary figure 3 average corrmat during trial on all days, each group
+# Figure 8A average corrmat during trial on all days, each group
 for grp in groups:
 
     aa1 = np.mean(df_corrmat_daily_all[(df_corrmat_daily_all.mouse_id.isin(mouse_list)) & 
@@ -668,7 +662,7 @@ for grp in groups:
     plt.title(grp + ' difference of correlations between trial and rest, all days')
     plt.tight_layout(); pp.savefig(fig); plt.close()
     
-#%% Supplementary figure 3
+#%% Figure 8B 8C
 df_seeds_corrmat = pd.DataFrame()
 for expt in data_list:
     mouse_id, grp = expt

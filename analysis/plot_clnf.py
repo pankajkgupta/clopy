@@ -29,8 +29,6 @@ from configparser import ConfigParser
 import numpy as np
 import tensortools as tt
 import seaborn as sns
-sns.set(font_scale=0.7)
-sns.set_style("ticks")
 import helper as clh
 import re
 from IPython.core.debugger import set_trace
@@ -128,7 +126,7 @@ rew_long = rew_wide.melt('day', var_name=['mouse_id','group', 'sex', 'roi_type',
 #%%
 pp = PdfPages(outdir + os.path.basename(__file__).split('.')[0] + '_' + 'summary_stats.pdf')
 
-#%% KDE plot for figure 1
+#%% Figure 4E bottom. KDE plot
 fig = plt.figure(figsize=(6, 3))
 sns.kdeplot(data=df_beh_log_daily_all.loc[(df_beh_log_daily_all['day'].isin([1,9])) & (df_beh_log_daily_all['exp_label'] == 'exp10')], x='target_dff',
             hue='day', log_scale=(False, False), shade=True, palette='Set1') #husl, colorblind, Set1, bright
@@ -141,7 +139,7 @@ plt.ylabel('density', fontweight='bold', fontsize=14)
 plt.tight_layout(pad=2);
 pp.savefig(fig); plt.close()
 
-#%% avg reward centered dff response plot for figure 1
+#%% Figure 4E top. avg reward centered dff response plot
 brain_fps = 30
 epochSize = int(3*brain_fps)
 rew_ixs = df_beh_log_daily_all.loc[(df_beh_log_daily_all['day'].isin([1,9])) &
@@ -162,7 +160,7 @@ plt.yticks(fontsize=14);
 plt.tight_layout(pad=2);
 pp.savefig(fig); plt.close()
 
-#%% block to plot and compare ROI1 and ROI2 data in 2ROI expts
+#%% Figure 5C. block to plot and compare ROI1 and ROI2 data in 2ROI expts
 unique_expts_2roi = df_beh_log_daily_all[df_beh_log_daily_all['roi_type']=='2ROI'][['mouse_id', 'exp_label', 'roi_type']].drop_duplicates().reset_index(drop=True)
 for i, e in unique_expts_2roi.iterrows():
     df = df_beh_log_daily_all[(df_beh_log_daily_all['mouse_id'] == e[0]) &
@@ -184,23 +182,23 @@ df = df_beh_log_daily_all[(df_beh_log_daily_all['mouse_id'] == 'BM1') &
 sns.jointplot(data=df, x="roi1dff", y="roi2dff", hue="day", kind="kde", n_levels=5, palette='Set2', fill=True, alpha=0.5)
 pp.savefig(plt.gcf()); plt.close()
 
-###### get slope values using regplot for figure 4G jointplot
-# plt.figure();
-# df = df_beh_log_daily_all[(df_beh_log_daily_all['mouse_id'] == 'BM1') &
-#                           (df_beh_log_daily_all['exp_label'] == 'exp16') &
-#                           (df_beh_log_daily_all['day'].isin([6]))]
-# g = sns.regplot(data=df, x="roi1dff", y="roi2dff"); plt.xlim([-0.2, 0.2]); plt.ylim([-0.2, 0.2])
-# slope, intercept, r, p, sterr = scipy.stats.linregress(x=g.get_lines()[0].get_xdata(), y=g.get_lines()[0].get_ydata())
-# plt.text(0, 0, 'y = ' + str(round(intercept,6)) + ' + ' + str(round(slope,6)) + 'x')
-##### get stats for bivariate distribution comparison: Multivariate Two-Sample Test using Permutation Test
-# data11 = df_beh_log_daily_all[(df_beh_log_daily_all['mouse_id'] == 'BM1') &
-#                           (df_beh_log_daily_all['exp_label'] == 'exp16') &
-#                           (df_beh_log_daily_all['day'].isin([6]))][['roi2dff', 'roi2dff']].values
-# data2 = df_beh_log_daily_all[(df_beh_log_daily_all['mouse_id'] == 'BM1') &
-#                           (df_beh_log_daily_all['exp_label'] == 'exp16') &
-#                           (df_beh_log_daily_all['day'].isin([17]))][['roi2dff', 'roi2dff']].values
-# from hyppo.ksample import MMD
-# stat, p_val = MMD(compute_kernel="rbf").test(data1, data2)
+## Figure 4G jointplot. get slope values using regplot
+plt.figure();
+df = df_beh_log_daily_all[(df_beh_log_daily_all['mouse_id'] == 'BM1') &
+                          (df_beh_log_daily_all['exp_label'] == 'exp16') &
+                          (df_beh_log_daily_all['day'].isin([6]))]
+g = sns.regplot(data=df, x="roi1dff", y="roi2dff"); plt.xlim([-0.2, 0.2]); plt.ylim([-0.2, 0.2])
+slope, intercept, r, p, sterr = scipy.stats.linregress(x=g.get_lines()[0].get_xdata(), y=g.get_lines()[0].get_ydata())
+plt.text(0, 0, 'y = ' + str(round(intercept,6)) + ' + ' + str(round(slope,6)) + 'x')
+#### get stats for bivariate distribution comparison: Multivariate Two-Sample Test using Permutation Test
+data1 = df_beh_log_daily_all[(df_beh_log_daily_all['mouse_id'] == 'BM1') &
+                          (df_beh_log_daily_all['exp_label'] == 'exp16') &
+                          (df_beh_log_daily_all['day'].isin([6]))][['roi2dff', 'roi2dff']].values
+data2 = df_beh_log_daily_all[(df_beh_log_daily_all['mouse_id'] == 'BM1') &
+                          (df_beh_log_daily_all['exp_label'] == 'exp16') &
+                          (df_beh_log_daily_all['day'].isin([17]))][['roi2dff', 'roi2dff']].values
+from hyppo.ksample import MMD
+stat, p_val = MMD(compute_kernel="rbf").test(data1, data2)
 
 #%% Figure 5C regplot of ROI1 and ROI2 dff
 df = df_beh_log_daily_all[(df_beh_log_daily_all['mouse_id'] == 'BM1') &
@@ -210,7 +208,7 @@ g = sns.FacetGrid(df, col="day")
 g.map(sns.regplot, 'roi1dff', 'roi2dff', scatter_kws={"color": "turquoise", 's':0.5}, line_kws={"color": "magenta"})
 pp.savefig(plt.gcf()); plt.close()
 
-#%% stats for paper
+#%% Figure 4A stats for paper
 fig = plt.figure(figsize=(12,10))
 fig.clf()
 fig.text(0.05,0.97, 'Mann-Kendall test on group performance before rule change', weight='bold')
@@ -370,50 +368,6 @@ plt.ylabel('Success Rate', fontweight='bold', fontsize=18)
 plt.xticks(rew_long_d1d10.day.unique()-1, rew_long_d1d10.day.unique(), fontsize=20)
 plt.yticks(fontsize=20)
 plt.title('Success rate by ROI rule', fontsize=18)
-
-#%% Supplementary figure 3 - not included in paper but helpful in exploration, success rate by roi-rule
-######## visualize success rate per roi rule
-for roi in rew_long_d1d10.roi_rule.unique():
-    a1 = rew_long_d1d10[rew_long_d1d10.roi_rule==roi]
-    if a1.rewards.any():
-        fig, ax = plt.subplots(figsize=(12, 8))
-        gfg = sns.pointplot(data=a1, x='day', y='rewards', ax=ax, legend=True)
-        plt.legend(fontsize=15)
-        sns.despine(offset=10, trim=True)
-        plt.xlabel('Days', fontweight='bold', fontsize=18)
-        plt.xticks(rew_long_d1d10.day.unique(), rew_long_d1d10.day.unique(), fontsize=20)
-        plt.ylabel('Success Rate', fontweight='bold', fontsize=18)
-        plt.yticks(fontsize=20)
-        plt.title('Success rate by ROI rule '+roi, fontsize=18)
-        print(scipy.stats.linregress(x=a1.day.values, y=a1.rewards.values))
-        
-#%%
-regslope_df = []
-for roi in rew_long_d1d10.roi_rule.unique():
-    a1 = rew_long_d1d10[rew_long_d1d10.roi_rule==roi]
-    if a1.rewards.any():
-        fig, ax = plt.subplots(figsize=(12, 8))
-        g = sns.regplot(data=a1, x="day", y="rewards", ax=ax);
-        sns.despine(offset=10, trim=True)
-        plt.xlabel('Days', fontweight='bold', fontsize=18)
-        plt.xticks(rew_long_d1d10.day.unique(), rew_long_d1d10.day.unique(), fontsize=20)
-        plt.ylabel('Success Rate', fontweight='bold', fontsize=18)
-        plt.yticks(fontsize=20)
-        plt.title('Success rate by ROI rule '+roi, fontsize=18)
-        
-        slope, intercept, r, p, sterr = scipy.stats.linregress(x=g.get_lines()[0].get_xdata(), y=g.get_lines()[0].get_ydata())
-        plt.text(0.5, 0, 'y = ' + str(round(intercept,6)) + ' + ' + str(round(slope,6)) + 'x')
-        print(roi, '\t',slope, '\t', intercept, '\t', r, '\t', p, '\t', sterr)
-        
-        d = {'roi' : roi, 'slope' : slope, 'intercept' : intercept, 'r' : r, 'p' : p, 'sterr' : sterr }
-        regslope_df.append(d)
-regslope_df = pd.DataFrame(regslope_df)
-
-sns.barplot(data=regslope_df, x="roi", y="slope", errorbar="sd", color='grey');
-plt.ylim([0, 0.2]); 
-sns.despine(offset=10, trim=True)
-plt.xticks(rotation=60);
-plt.tight_layout()
 
 #%% Supplementary figure 3C: helps determine slope of overall data (mean slope)
 g = sns.regplot(data=rew_long_d1d10, x="day", y="rewards");
