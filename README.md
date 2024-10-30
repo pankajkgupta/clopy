@@ -6,7 +6,7 @@ Closed-loop feedback training system (CLoPy) for neurofeedback and specified mov
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/fig1.png?raw=true)
 
 
-## [!NOTE] Folder stucture
+## Folder stucture
 ```
 clopy/
 ├── analysis/                                               Folder with all analysis code
@@ -37,13 +37,9 @@ clopy/
 
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/fig2.png?raw=true)
 
-Click this to watch an overview
 
-[![CLoPy](<image path>)](<youtube URL>)
 
-![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20230728121232_rewbehbrain20594.gif?raw=true)
-![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20231004180719_rewbehbrain9898.gif?raw=true)
-
+# CLNF setup
 
 How-to
 ---------------------------
@@ -81,3 +77,7 @@ pip3 install kivy
 
 6. Use <kbd>Esc</kbd> to close the program.
 
+# CLMF setup
+
+![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20230728121232_rewbehbrain20594.gif?raw=true)
+![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20231004180719_rewbehbrain9898.gif?raw=true)
