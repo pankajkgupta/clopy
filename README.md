@@ -35,11 +35,14 @@ clopy/
 └── VideoStream.py
 ```
 
+
+# Setup
+
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/fig2.png?raw=true)
 
 
 
-# CLNF setup
+## CLNF setup
 
 How-to
 ---------------------------
@@ -77,7 +80,7 @@ pip3 install kivy
 
 6. Use <kbd>Esc</kbd> to close the program.
 
-# CLMF setup
+## CLMF setup
 
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20230728121232_rewbehbrain20594.gif?raw=true)
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20231004180719_rewbehbrain9898.gif?raw=true)
