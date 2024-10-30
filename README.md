@@ -5,20 +5,19 @@ Closed-loop feedback training system (CLoPy) for neurofeedback and specified mov
 
 ```
 clopy/
-├── analysis/
+├── analysis/                                                       Folder with all analysis code
 │   ├── get_clmf_data.py
-│   ├── get_clnf_data.py
 │   ├── plot_clmf.py
 │   └── plot_clnf.py
-├── assets/
+├── assets/                                                         Folder with images and animations for display
 │   ├── fig1.png
 │   ├── fig2.png
 │   ├── GT33_tta_20230728121232_rewbehbrain20594.gif
 │   ├── GT33_tta_20231004180719_rewbehbrain9898.gif
 │   └── supplementary5.png
-├── behavior/
+├── behavior/                                                       Folder with script to run CLMF experiment
 │   └── cla_dlc_trials_speed.py
-├── brain/
+├── brain/                                                          Folder with scripts to run CLNF experiment
 │   ├── cla_reward_punish_1roi.py
 │   └── cla_reward_punish_2roi.py
 ├── CameraFactory.py
