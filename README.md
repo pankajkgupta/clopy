@@ -5,6 +5,8 @@ Closed-loop feedback training system (CLoPy) for neurofeedback and specified mov
 
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/fig1.png?raw=true)
 
+
+## [!NOTE] Folder stucture
 ```
 clopy/
 ├── analysis/                                               Folder with all analysis code
