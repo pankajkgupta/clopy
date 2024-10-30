@@ -44,6 +44,10 @@ clopy/
 
 ## CLNF setup
 
+> [!NOTE]
+> CLNF was implemented on Raspberry Pi 4B+ and steps below are to replicate that. 
+> But the system can be adapted to other platforms with minor adaptations.
+
 How-to
 ---------------------------
 
