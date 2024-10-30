@@ -3,7 +3,7 @@ Closed-loop feedback training system (CLoPy) for neurofeedback and specified mov
 
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/fig1.png?raw=true)
 
-```bash
+```
 clopy/
 ├── analysis/
 │   ├── get_clmf_data.py
