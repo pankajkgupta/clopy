@@ -3,7 +3,7 @@ Closed-loop feedback training system (CLoPy) for neurofeedback and specified mov
 
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/fig1.png?raw=true)
 
-
+```bash
 clopy/
 ├── analysis/
 │   ├── get_clmf_data.py
@@ -30,7 +30,7 @@ clopy/
 ├── roi_manager.py
 ├── SentechCameraStream.py
 └── VideoStream.py
-
+```
 
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/fig2.png?raw=true)
 
