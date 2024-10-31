@@ -53,27 +53,32 @@ The rig hardware parts list can be found here- [CLNF_Parts_List_and_Assembly_Ins
 How-to
 ---------------------------
 
-1. Install Python 3.x (anaconda recommended)
+Install Python 3.x (anaconda recommended)
 
-2. Install PyAudio
+Install PyAudio
 
+```
 sudo apt-get install portaudio19-dev python3-pyaudio
-
+```
+```
 pip3 install PyAudio
-
+```
 ### Install audiostream
 
 ```
 sudo apt-get install libsdl1.2-dev
-
+```
+```
 sudo apt-get install libsdl-mixer1.2-dev
-
+```
+```
 pip3 install cython
-
+```
+```
 pip3 install kivy
 ```
 
-4. Clone the repository:
+Clone the repository:
 
    ```bash
    $ git clone https://github.com/pankajkgupta/clopy.git
@@ -81,7 +86,7 @@ pip3 install kivy
 
    or download as zip and extract.
 
-5. In the clopy root directory run
+In the clopy root directory run
 
    ```bash
    $ python <>.py
