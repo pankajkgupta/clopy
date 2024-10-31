@@ -57,12 +57,12 @@ Install Python 3.x (anaconda recommended)
 
 Install PyAudio
 
-    ```
-    sudo apt-get install portaudio19-dev python3-pyaudio
-    ```
-    ```
-    pip3 install PyAudio
-    ```
+```
+sudo apt-get install portaudio19-dev python3-pyaudio
+```
+```
+pip3 install PyAudio
+```
 ### Install audiostream
 
 ```
