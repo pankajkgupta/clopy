@@ -100,7 +100,7 @@ If you want to interrupt the session after it starts, press <kbd>Esc</kbd> butto
 
 Here are some reward centered dorsal cortical maps averaged over trials of a session:
 
-![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/animation1_clnf?raw=true)
+![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/animation1_clnf.gif?raw=true)
 
 ## CLMF setup
 
