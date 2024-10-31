@@ -92,7 +92,11 @@ In the clopy root directory run
 python brain/<script-name>.py
 ```
 
-Use <kbd>Esc</kbd> to close the program.
+... you would be prompted to enter a 'mouse_id'. After this step, you would see a 
+preview window where you can make sure all settings and setup look fine 
+before hitting <kbd>Esc</kbd> button the the keyboard to start a session.
+
+If you want to interrupt the session after it starts, press <kbd>Esc</kbd> button while the window is selected, to close the session as the program.
 
 ## CLMF setup
 
@@ -117,6 +121,27 @@ Install Python >= 3.8 (anaconda recommended)
 ```
 pip install deeplabcut-live
 ```
+
+Clone the repository:
+
+```bash
+git clone https://github.com/pankajkgupta/clopy.git
+```
+
+   or download as zip and extract.
+
+In the clopy root directory run
+
+```bash
+python behavior/<script-name>.py
+```
+
+... you would be prompted to enter a 'mouse_id'. After this step, you would see a 
+preview window where you can make sure all settings and setup look fine 
+before hitting <kbd>Esc</kbd> button the the keyboard to start a session.
+
+If you want to interrupt the session after it starts, press <kbd>Esc</kbd> button while the window is selected, to close the session as the program.
+
 
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20230728121232_rewbehbrain20594.gif?raw=true)
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20231004180719_rewbehbrain9898.gif?raw=true)
