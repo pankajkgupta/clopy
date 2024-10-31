@@ -49,7 +49,7 @@ clopy/
 > But the system can be adapted to other platforms with minor adaptations.
 
 The rig hardware parts list can be found here- 
-![here]("https://github.com/pankajkgupta/clopy/blob/main/assets/CLNF Parts_List_and_Assembly_Instructions_Gupta_et_al.pdf")
+![here](https://github.com/pankajkgupta/clopy/blob/main/assets/CLNF Parts_List_and_Assembly_Instructions_Gupta_et_al.pdf?raw=true)
 
 How-to
 ---------------------------
@@ -88,6 +88,10 @@ pip3 install kivy
 6. Use <kbd>Esc</kbd> to close the program.
 
 ## CLMF setup
+
+> [!NOTE]
+> CLMF was implemented on Nvidia-Jetson Orin and steps below are to replicate that. 
+> But the system can be adapted to other platforms with a GPU capable of inference.
 
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20230728121232_rewbehbrain20594.gif?raw=true)
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20231004180719_rewbehbrain9898.gif?raw=true)
