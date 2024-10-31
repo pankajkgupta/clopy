@@ -53,9 +53,9 @@ The rig hardware parts list can be found here- [CLNF_Parts_List_and_Assembly_Ins
 How-to
 ---------------------------
 
-Install Python 3.x (anaconda recommended)
+Install Python >= 3.8 (anaconda recommended)
 
-Install PyAudio
+### Install PyAudio
 
 ```
 sudo apt-get install portaudio19-dev python3-pyaudio
