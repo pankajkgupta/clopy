@@ -93,5 +93,11 @@ pip3 install kivy
 > CLMF was implemented on Nvidia-Jetson Orin and steps below are to replicate that. 
 > But the system can be adapted to other platforms with a GPU capable of inference.
 
+> [!IMPORTANT]
+> Please check the 
+> Please check the eepLabCut-Live GitHub page for latest instructions for installing this package. Command below usually works fine
+
+pip install deeplabcut-live
+
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20230728121232_rewbehbrain20594.gif?raw=true)
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20231004180719_rewbehbrain9898.gif?raw=true)
