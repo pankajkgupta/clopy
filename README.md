@@ -9,7 +9,7 @@ Closed-loop feedback training system (CLoPy) for neurofeedback and specified mov
 ## Folder stucture
 ```
 clopy/
-├── analysis/                                               Folder with all analysis code
+├── analysis/                                               Folder with analysis code
 │   ├── get_clmf_data.py
 │   ├── plot_clmf.py
 │   └── plot_clnf.py
@@ -102,8 +102,16 @@ Use <kbd>Esc</kbd> to close the program.
 
 The rig hardware parts list can be found here- [CLMF_Parts_List_and_Assembly_Instructions_Gupta_et_al.pdf](https://github.com/pankajkgupta/clopy/blob/main/assets/CLMF_Parts_List_and_Assembly_Instructions_Gupta_et_al.pdf)
 
+How-to
+---------------------------
+
+Install Python >= 3.8 (anaconda recommended)
+
+### Install DeepLabCut-Live
 > [!IMPORTANT]
-> Please check the DeepLabCut-Live ([Kane et al, eLife 2020](https://elifesciences.org/articles/61909)) [GitHub page](https://github.com/DeepLabCut/DeepLabCut-live) for latest instructions for installing this package. Command below usually works fine
+> Please check the DeepLabCut-Live ([Kane et al, eLife 2020](https://elifesciences.org/articles/61909)) [GitHub page](https://github.com/DeepLabCut/DeepLabCut-live) for latest instructions for installing this package. 
+> Please also check the tensorflow version requirements on their GitHub page. 
+> Command below usually works fine
 
 ```
 pip install deeplabcut-live
