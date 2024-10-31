@@ -14,11 +14,11 @@ clopy/
 │   ├── plot_clmf.py
 │   └── plot_clnf.py
 ├── assets/                                                 Folder with images and animations for display
-│   ├── fig1.png
-│   ├── fig2.png
-│   ├── GT33_tta_20230728121232_rewbehbrain20594.gif
-│   ├── GT33_tta_20231004180719_rewbehbrain9898.gif
-│   └── supplementary5.png
+│   ├──
+│   . 
+│   . 
+│   . 
+│    
 ├── behavior/                                               Folder with script to run CLMF experiment
 │   └── cla_dlc_trials_speed.py
 ├── brain/                                                  Folder with scripts to run CLNF experiment
