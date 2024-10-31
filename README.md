@@ -74,15 +74,15 @@ pip3 install kivy
 4. Clone the repository:
 
    ```bash
-   $ git clone <>
+   $ git clone https://github.com/pankajkgupta/clopy.git
    ```
 
    or download as zip and extract.
 
-5. In the root directory run
+5. In the clopy root directory run
 
    ```bash
-   $ python <>
+   $ python <>.py
    ```
 
 6. Use <kbd>Esc</kbd> to close the program.
