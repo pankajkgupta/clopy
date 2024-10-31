@@ -65,32 +65,32 @@ Install PyAudio
     ```
 ### Install audiostream
 
-    ```
-    sudo apt-get install libsdl1.2-dev
-    ```
-    ```
-    sudo apt-get install libsdl-mixer1.2-dev
-    ```
-    ```
-    pip3 install cython
-    ```
-    ```
-    pip3 install kivy
-    ```
+```
+sudo apt-get install libsdl1.2-dev
+```
+```
+sudo apt-get install libsdl-mixer1.2-dev
+```
+```
+pip3 install cython
+```
+```
+pip3 install kivy
+```
 
 Clone the repository:
 
-    ```bash
-    $ git clone https://github.com/pankajkgupta/clopy.git
-    ```
+```bash
+git clone https://github.com/pankajkgupta/clopy.git
+```
 
    or download as zip and extract.
 
 In the clopy root directory run
 
-   ```bash
-   $ python brain/<script-name>.py
-   ```
+```bash
+python brain/<script-name>.py
+```
 
 Use <kbd>Esc</kbd> to close the program.
 
