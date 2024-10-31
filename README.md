@@ -111,7 +111,8 @@ Install Python >= 3.8 (anaconda recommended)
 > [!IMPORTANT]
 > Please check the DeepLabCut-Live ([Kane et al, eLife 2020](https://elifesciences.org/articles/61909)) [GitHub page](https://github.com/DeepLabCut/DeepLabCut-live) for latest instructions for installing this package. 
 > Please also check the tensorflow version requirements on their GitHub page. 
-> Command below usually works fine
+> 
+> If all dependencies are fine, the command below usually works fine
 
 ```
 pip install deeplabcut-live
