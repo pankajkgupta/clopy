@@ -92,6 +92,8 @@ pip3 install kivy
 > CLMF was implemented on Nvidia-Jetson Orin and steps below are to replicate that. 
 > But the system can be adapted to other platforms with a GPU capable of inference.
 
+The rig hardware parts list can be found here- [CLMF_Parts_List_and_Assembly_Instructions_Gupta_et_al.pdf](https://github.com/pankajkgupta/clopy/blob/main/assets/CLMF_Parts_List_and_Assembly_Instructions_Gupta_et_al.pdf)
+
 > [!IMPORTANT]
 > Please check the 
 > Please check the eepLabCut-Live GitHub page for latest instructions for installing this package. Command below usually works fine
