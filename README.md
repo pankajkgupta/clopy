@@ -49,7 +49,7 @@ clopy/
 > But the system can be adapted to other platforms with minor adaptations.
 
 The rig hardware parts list can be found here- 
-[here]("https://github.com/pankajkgupta/clopy/blob/main/assets/CLNF Parts_List_and_Assembly_Instructions_Gupta_et_al.pdf")
+![here]("https://github.com/pankajkgupta/clopy/blob/main/assets/CLNF Parts_List_and_Assembly_Instructions_Gupta_et_al.pdf")
 
 How-to
 ---------------------------
@@ -62,7 +62,7 @@ sudo apt-get install portaudio19-dev python3-pyaudio
 
 pip3 install PyAudio
 
-3. # Install audiostream
+### Install audiostream
 sudo apt-get install libsdl1.2-dev
 
 sudo apt-get install libsdl-mixer1.2-dev
