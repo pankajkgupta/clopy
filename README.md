@@ -48,7 +48,7 @@ clopy/
 > CLNF was implemented on Raspberry Pi 4B+ and steps below are to replicate that. 
 > But the system can be adapted to other platforms with minor adaptations.
 
-The rig hardware parts list can be found here- [a link](https://github.com/pankajkgupta/clopy/blob/main/assets/CLNF Parts_List_and_Assembly_Instructions_Gupta_et_al.pdf)
+The rig hardware parts list can be found here- [a link](./assets/CLNF Parts_List_and_Assembly_Instructions_Gupta_et_al.pdf)
 How-to
 ---------------------------
 
