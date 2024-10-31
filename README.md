@@ -98,6 +98,10 @@ before hitting <kbd>Esc</kbd> button the the keyboard to start a session.
 
 If you want to interrupt the session after it starts, press <kbd>Esc</kbd> button while the window is selected, to close the session as the program.
 
+Here are some reward centered dorsal cortical maps averaged over trials of a session:
+
+![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/animation1_clnf?raw=true)
+
 ## CLMF setup
 
 > [!NOTE]
