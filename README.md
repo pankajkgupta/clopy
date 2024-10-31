@@ -103,8 +103,7 @@ Use <kbd>Esc</kbd> to close the program.
 The rig hardware parts list can be found here- [CLMF_Parts_List_and_Assembly_Instructions_Gupta_et_al.pdf](https://github.com/pankajkgupta/clopy/blob/main/assets/CLMF_Parts_List_and_Assembly_Instructions_Gupta_et_al.pdf)
 
 > [!IMPORTANT]
-> Please check the 
-> Please check the eepLabCut-Live GitHub page for latest instructions for installing this package. Command below usually works fine
+> Please check the DeepLabCut-Live ([Kane et al, eLife 2020](https://elifesciences.org/articles/61909)) [GitHub page](https://github.com/DeepLabCut/DeepLabCut-live) for latest instructions for installing this package. Command below usually works fine
 
 ```
 pip install deeplabcut-live
