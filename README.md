@@ -169,6 +169,7 @@ conda activate clopy
 ```
 
 ### Install [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/)
+Follow your platform specific instructions. Commands below are specific to Linux based systems
 
 ```
 sudo apt-get install portaudio19-dev python3-pyaudio
@@ -248,6 +249,9 @@ before hitting <kbd>Esc</kbd> button the the keyboard to start a session.
 
 If you want to interrupt the session after it starts, press <kbd>Esc</kbd> button while the window is selected, to close the session as the program.
 
+
+Here are two example trials from CLMF experiment where task was to move left fore-limb (top animation) 
+and later the same mouse was trained to move right fore-limb (bottom animation)
 
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20230728121232_rewbehbrain20594.gif?raw=true)
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20231004180719_rewbehbrain9898.gif?raw=true)
