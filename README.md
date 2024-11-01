@@ -55,6 +55,18 @@ How-to
 
 Install Python >= 3.8 ([anaconda](https://docs.anaconda.com/anaconda/install/) recommended)
 
+We highly recommend creating a virtual environment such as using conda 
+and install all the python packages in that environment
+
+```
+conda create -n clopy
+```
+Activate the conda environment
+
+```
+conda activate clopy
+```
+
 ### Install PyAudio
 
 ```
@@ -114,6 +126,18 @@ How-to
 ---------------------------
 
 Install Python >= 3.8 ([anaconda](https://docs.anaconda.com/anaconda/install/) recommended)
+
+We highly recommend creating a virtual environment such as using conda 
+and install all the python packages in that environment
+
+```
+conda create -n clopy
+```
+Activate the conda environment
+
+```
+conda activate clopy
+```
 
 ### Install DeepLabCut-Live
 > [!IMPORTANT]
