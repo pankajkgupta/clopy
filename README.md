@@ -67,7 +67,8 @@ Activate the conda environment
 conda activate clopy
 ```
 
-### Install PyAudio
+### Install [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/)
+Follow your platform specific instructions. Commands below are specific to Linux based systems
 
 ```
 sudo apt-get install portaudio19-dev python3-pyaudio
@@ -75,6 +76,7 @@ sudo apt-get install portaudio19-dev python3-pyaudio
 ```
 pip3 install PyAudio
 ```
+
 ### Install audiostream
 
 ```
@@ -139,7 +141,7 @@ Activate the conda environment
 conda activate clopy
 ```
 
-### Install PyAudio
+### Install [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/)
 
 ```
 sudo apt-get install portaudio19-dev python3-pyaudio
@@ -147,6 +149,7 @@ sudo apt-get install portaudio19-dev python3-pyaudio
 ```
 pip3 install PyAudio
 ```
+
 ### Install audiostream
 
 ```
