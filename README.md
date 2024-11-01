@@ -58,6 +58,8 @@ Install Python >= 3.8 ([anaconda](https://docs.anaconda.com/anaconda/install/) r
 We highly recommend creating a virtual environment such as using conda 
 and install all the python packages in that environment
 
+Following commands are to be run in a Terminal (Linux/MacOS)
+
 ```
 conda create -n clopy
 ```
@@ -92,13 +94,38 @@ pip3 install cython
 pip3 install kivy
 ```
 
-Clone the repository:
+Clone the Audiostream repo:
+```
+git clone https://github.com/kivy/audiostream.git
+```
+or download as zip and extract.
+
+Change the directory to downloaded repository
+
+```
+cd audiostream
+```
+Run Audiostream setup installation
+```
+sudo python setup.py install
+```
+
+After setup completes successfully, change current directory to a directory where you want to clone CLoPy (eg. home direcotry)
+```
+cd ~
+```
+
+Clone the CLoPy repository:
 
 ```bash
 git clone https://github.com/pankajkgupta/clopy.git
 ```
 
    or download as zip and extract.
+
+```
+cd clopy
+```
 
 In the clopy root directory run
 
@@ -165,6 +192,22 @@ pip3 install cython
 pip3 install kivy
 ```
 
+Clone the Audiostream repo:
+```
+git clone https://github.com/kivy/audiostream.git
+```
+or download as zip and extract.
+
+Change the directory to downloaded repository
+
+```
+cd audiostream
+```
+Run Audiostream setup installation
+```
+sudo python setup.py install
+```
+
 ### Install DeepLabCut-Live
 > [!IMPORTANT]
 > Please check the DeepLabCut-Live ([Kane et al, eLife 2020](https://elifesciences.org/articles/61909)) [GitHub page](https://github.com/DeepLabCut/DeepLabCut-live) for latest instructions for installing this package. 
@@ -176,13 +219,22 @@ pip3 install kivy
 pip install deeplabcut-live
 ```
 
-Clone the repository:
+After setup completes successfully, change current directory to a directory where you want to clone CLoPy (eg. home direcotry)
+```
+cd ~
+```
+
+Clone the CLoPy repository:
 
 ```bash
 git clone https://github.com/pankajkgupta/clopy.git
 ```
 
    or download as zip and extract.
+
+```
+cd clopy
+```
 
 In the clopy root directory run
 
