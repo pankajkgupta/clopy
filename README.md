@@ -79,7 +79,7 @@ sudo apt-get install portaudio19-dev python3-pyaudio
 pip3 install PyAudio
 ```
 
-### Install audiostream
+### Install [Audiostream](https://github.com/kivy/audiostream)
 
 ```
 sudo apt-get install libsdl1.2-dev
@@ -177,7 +177,7 @@ sudo apt-get install portaudio19-dev python3-pyaudio
 pip3 install PyAudio
 ```
 
-### Install audiostream
+### Install [Audiostream](https://github.com/kivy/audiostream)
 
 ```
 sudo apt-get install libsdl1.2-dev
