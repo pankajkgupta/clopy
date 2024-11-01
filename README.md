@@ -38,6 +38,8 @@ clopy/
 
 # Setup
 
+Overview of CLNF process (A) and CLMF process (B)
+
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/fig2.png?raw=true)
 
 
