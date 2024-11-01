@@ -139,7 +139,7 @@ before hitting <kbd>Esc</kbd> button the the keyboard to start a session.
 
 If you want to interrupt the session after it starts, press <kbd>Esc</kbd> button while the window is selected, to close the session as the program.
 
-Here are some reward centered dorsal cortical maps averaged over trials of a session:
+#### Here are some reward centered dorsal cortical maps averaged over trials of a session:
 
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/animation1_clnf.gif?raw=true)
 
@@ -250,7 +250,7 @@ before hitting <kbd>Esc</kbd> button the the keyboard to start a session.
 If you want to interrupt the session after it starts, press <kbd>Esc</kbd> button while the window is selected, to close the session as the program.
 
 
-Here are two example trials from CLMF experiment where task was to move left fore-limb (top animation) 
+#### Here are two example trials from CLMF experiment where task was to move left fore-limb (top animation) 
 and later the same mouse was trained to move right fore-limb (bottom animation)
 
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20230728121232_rewbehbrain20594.gif?raw=true)
