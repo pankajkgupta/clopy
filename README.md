@@ -131,8 +131,13 @@ cd clopy
 
 In the clopy root directory run
 
+For CLNF experiment involving single ROI (1ROI):
 ```bash
-python brain/<script-name>.py
+python brain/cla_reward_punish_1roi.py
+```
+For CLNF experiment involving dual ROI (2ROI):
+```bash
+python brain/cla_reward_punish_2roi.py
 ```
 
 ... you would be prompted to enter a 'mouse_id'. After this step, you would see a 
@@ -242,7 +247,7 @@ cd clopy
 In the clopy root directory run
 
 ```bash
-python behavior/<script-name>.py
+python behavior/cla_dlc_trials_speed.py
 ```
 
 ... you would be prompted to enter a 'mouse_id'. After this step, you would see a 
