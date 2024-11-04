@@ -71,7 +71,7 @@ Activate the conda environment
 conda activate clopy
 ```
 
-### Install [OpenCV](https://pypi.org/project/opencv-python/)
+### Install dependencies
 ```
 pip3 install opencv-python tables cvui roipoly scipy pandas joblib pillow videofig imutils gpiozero Adafruit-Blinka adafruit-circuitpython-mpr121
 ```
