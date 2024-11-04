@@ -71,6 +71,47 @@ Activate the conda environment
 conda activate clopy
 ```
 
+### Install [OpenCV](https://pypi.org/project/opencv-python/)
+```
+pip3 install opencv-python
+```
+```
+pip3 install tables
+```
+```
+pip install cvui
+```
+```
+pip install roipoly
+```
+```
+pip install scipy
+```
+```
+pip install pandas
+```
+```
+pip install joblib
+```
+```
+pip install pillow
+```
+```
+pip install videofig
+```
+```
+pip install imutils
+```
+```
+pip install gpiozero
+```
+```
+pip install Adafruit-Blinka
+```
+```
+pip install adafruit-circuitpython-mpr121
+```
+
 ### Install [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/)
 Follow your platform specific instructions. Commands below are specific to Linux based systems
 
