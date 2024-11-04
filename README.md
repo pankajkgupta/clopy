@@ -180,6 +180,10 @@ Activate the conda environment
 conda activate clopy
 ```
 
+### Install dependencies
+```
+pip3 install opencv-python tables cvui roipoly scipy pandas joblib pillow videofig imutils
+```
 ### Install [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/)
 Follow your platform specific instructions. Commands below are specific to Linux based systems
 
