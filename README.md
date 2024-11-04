@@ -57,8 +57,8 @@ How-to
 
 Install Python >= 3.8 ([anaconda](https://docs.anaconda.com/anaconda/install/) or [miniconda](https://docs.anaconda.com/miniconda/miniconda-install/) recommended)
 
-We highly recommend creating a virtual environment such as using conda 
-and install all the python packages in that environment
+> [!TIP] We highly recommend creating a virtual environment such as using conda 
+> and install all the python packages in that environment
 
 Following commands are to be run in a Terminal (Linux/MacOS)
 
@@ -163,8 +163,8 @@ How-to
 
 Install Python >= 3.8 ([anaconda](https://docs.anaconda.com/anaconda/install/) or [miniconda](https://docs.anaconda.com/miniconda/miniconda-install/) recommended)
 
-We highly recommend creating a virtual environment such as using conda 
-and install all the python packages in that environment
+> [!TIP] We highly recommend creating a virtual environment such as using conda 
+> and install all the python packages in that environment
 
 ```
 conda create -n clopy
