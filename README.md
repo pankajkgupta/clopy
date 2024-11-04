@@ -55,7 +55,7 @@ The rig hardware parts list can be found here- [CLNF_Parts_List_and_Assembly_Ins
 How-to
 ---------------------------
 
-Install Python >= 3.8 ([anaconda](https://docs.anaconda.com/anaconda/install/) recommended)
+Install Python >= 3.8 ([anaconda](https://docs.anaconda.com/anaconda/install/) or [miniconda](https://docs.anaconda.com/miniconda/miniconda-install/) recommended)
 
 We highly recommend creating a virtual environment such as using conda 
 and install all the python packages in that environment
@@ -161,7 +161,7 @@ The rig hardware parts list can be found here- [CLMF_Parts_List_and_Assembly_Ins
 How-to
 ---------------------------
 
-Install Python >= 3.8 ([anaconda](https://docs.anaconda.com/anaconda/install/) recommended)
+Install Python >= 3.8 ([anaconda](https://docs.anaconda.com/anaconda/install/) or [miniconda](https://docs.anaconda.com/miniconda/miniconda-install/) recommended)
 
 We highly recommend creating a virtual environment such as using conda 
 and install all the python packages in that environment
