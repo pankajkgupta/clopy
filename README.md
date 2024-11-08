@@ -266,7 +266,10 @@ before hitting <kbd>Esc</kbd> button the the keyboard to start a session.
 If you want to interrupt the session after it starts, press the <kbd>Esc</kbd> button while the window is selected, to close the session as the program.
 
 
-#### Here are two example trials from the CLMF experiment where the task was to move the left fore-limb (top animation) and later the same mouse was trained to move the right fore-limb (bottom animation)
+#### Here are two example trials from the CLMF experiment where the task was to move the left fore-limb (top animation)
 
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20230728121232_rewbehbrain20594.gif?raw=true)
+
+#### ... and later the same mouse was trained to move the right fore-limb
+
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20231004180719_rewbehbrain9898.gif?raw=true)
