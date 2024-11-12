@@ -6,7 +6,7 @@ Closed-loop feedback training system (CLoPy) for neurofeedback and specified mov
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/fig1.png?raw=true)
 
 
-## Folder stucture
+## Folder structure
 ```
 clopy/
 ├── analysis/                                               Folder with analysis code
@@ -47,7 +47,7 @@ Overview of CLNF process (A) and CLMF process (B)
 ## CLNF setup
 
 > [!NOTE]
-> CLNF was implemented on Raspberry Pi 4B+ and steps below are to replicate that. 
+> CLNF was implemented on Raspberry Pi 4B+ and the steps below are to replicate that. 
 > But the system can be adapted to other platforms with minor adaptations.
 
 The rig hardware parts list can be found here- [CLNF_Parts_List_and_Assembly_Instructions_Gupta_et_al.pdf](https://github.com/pankajkgupta/clopy/blob/main/assets/CLNF_Parts_List_and_Assembly_Instructions_Gupta_et_al.pdf)
@@ -58,9 +58,9 @@ How-to
 Install Python >= 3.8 ([anaconda](https://docs.anaconda.com/anaconda/install/) or [miniconda](https://docs.anaconda.com/miniconda/miniconda-install/) recommended)
 
 > [!TIP]
-> We highly recommend creating a virtual environment such as using conda and install all the python packages in that environment
+> We highly recommend creating a virtual environment such as using conda and installing all the Python packages in that environment
 
-Following commands are to be run in a Terminal (Linux/MacOS)
+The following commands are to be run in a Terminal (Linux/MacOS)
 
 ```
 conda create -n clopy
@@ -77,7 +77,7 @@ pip3 install opencv-python tables cvui roipoly scipy pandas joblib pillow videof
 ```
 
 ### Install [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/)
-Follow your platform specific instructions. Commands below are specific to Linux based systems
+Follow your platform-specific instructions. The commands below are specific to Linux-based systems
 
 ```
 sudo apt-get install portaudio19-dev python3-pyaudio
@@ -105,9 +105,9 @@ Clone the Audiostream repo:
 ```
 git clone https://github.com/kivy/audiostream.git
 ```
-or download as zip and extract.
+or download as a zip and extract.
 
-Change the directory to downloaded repository
+Change the directory to the downloaded repository
 
 ```
 cd audiostream
@@ -117,7 +117,7 @@ Run Audiostream setup installation
 sudo python setup.py install
 ```
 
-After setup completes successfully, change current directory to a directory where you want to clone CLoPy (eg. home direcotry)
+After setup completes successfully, change the current directory to a directory where you want to clone CLoPy (eg. home directory)
 ```
 cd ~
 ```
@@ -128,7 +128,7 @@ Clone the CLoPy repository:
 git clone https://github.com/pankajkgupta/clopy.git
 ```
 
-   or download as zip and extract.
+   or download as a zip and extract.
 
 ```
 cd clopy
@@ -145,13 +145,13 @@ For CLNF experiment involving dual ROI (2ROI):
 python brain/cla_reward_punish_2roi.py
 ```
 
-... you would be prompted to enter a 'mouse_id'. After this step, you would see a 
+... you would be prompted to enter a 'mouse_id'. After this step, you will see a 
 preview window where you can make sure all settings and setup look fine 
 before hitting <kbd>Esc</kbd> button the the keyboard to start a session.
 
-If you want to interrupt the session after it starts, press <kbd>Esc</kbd> button while the window is selected, to close the session as the program.
+If you want to interrupt the session after it starts, press the <kbd>Esc</kbd> button while the window is selected, to close the session as the program.
 
-#### Here are some reward centered dorsal cortical maps averaged over trials of a session:
+#### Here are some reward-centered dorsal cortical maps averaged over trials of a session:
 
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/animation1_clnf.gif?raw=true)
 
@@ -169,7 +169,7 @@ How-to
 Install Python >= 3.8 ([anaconda](https://docs.anaconda.com/anaconda/install/) or [miniconda](https://docs.anaconda.com/miniconda/miniconda-install/) recommended)
 
 > [!TIP]
-> We highly recommend creating a virtual environment such as using conda and install all the python packages in that environment
+> We highly recommend creating a virtual environment such as using conda and installing all the Python packages in that environment
 
 ```
 conda create -n clopy
@@ -185,7 +185,7 @@ conda activate clopy
 pip3 install opencv-python tables cvui roipoly scipy pandas joblib pillow videofig imutils
 ```
 ### Install [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/)
-Follow your platform specific instructions. Commands below are specific to Linux based systems
+Follow your platform-specific instructions. The commands below are specific to Linux-based systems
 
 ```
 sudo apt-get install portaudio19-dev python3-pyaudio
@@ -215,7 +215,7 @@ git clone https://github.com/kivy/audiostream.git
 ```
 or download as zip and extract.
 
-Change the directory to downloaded repository
+Change the directory to the downloaded repository
 
 ```
 cd audiostream
@@ -236,7 +236,7 @@ sudo python setup.py install
 pip install deeplabcut-live
 ```
 
-After setup completes successfully, change current directory to a directory where you want to clone CLoPy (eg. home direcotry)
+After setup completes successfully, change the current directory to a directory where you want to clone CLoPy (eg. home directory)
 ```
 cd ~
 ```
@@ -259,14 +259,17 @@ In the clopy root directory run
 python behavior/cla_dlc_trials_speed.py
 ```
 
-... you would be prompted to enter a 'mouse_id'. After this step, you would see a 
+... you would be prompted to enter a 'mouse_id'. After this step, you will see a 
 preview window where you can make sure all settings and setup look fine 
 before hitting <kbd>Esc</kbd> button the the keyboard to start a session.
 
-If you want to interrupt the session after it starts, press <kbd>Esc</kbd> button while the window is selected, to close the session as the program.
+If you want to interrupt the session after it starts, press the <kbd>Esc</kbd> button while the window is selected, to close the session as the program.
 
 
-#### Here are two example trials from CLMF experiment where task was to move left fore-limb (top animation) and later the same mouse was trained to move right fore-limb (bottom animation)
+#### Here are two example trials from the CLMF experiment where the task was to move the left fore-limb (top animation)
 
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20230728121232_rewbehbrain20594.gif?raw=true)
+
+#### ... and later the same mouse was trained to move the right fore-limb
+
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20231004180719_rewbehbrain9898.gif?raw=true)
