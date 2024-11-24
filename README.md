@@ -1,6 +1,9 @@
 # CLoPy
 Closed-loop feedback training system (CLoPy) for neurofeedback and specified movement feedback in mice
 
+This work accompanies the research paper - 
+https://www.biorxiv.org/content/10.1101/2024.11.02.619716v1
+
 ## Overall modules in the system:
 
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/fig1.png?raw=true)
