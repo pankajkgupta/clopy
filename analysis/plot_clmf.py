@@ -674,8 +674,9 @@ for expt in data_list:
         if df.empty:
             print(mouse_id + ' ' + grp + ' No data')
             continue
-        reward_corrmat = df['reward_corrmat'].values[0]
-        rest_corrmat = df['rest_corrmat'].values[0]
+
+        reward_corrmat = np.arctanh(df['reward_corrmat'].values[0]) # np.arctanh for fisher z transform the correlation values before applying statistical test
+        rest_corrmat = np.arctanh(df['rest_corrmat'].values[0]) # np.arctanh for fisher z transform the correlation values before applying statistical test
         
         for i, se1 in enumerate(seeds):
             for j, se2 in enumerate(seeds):
