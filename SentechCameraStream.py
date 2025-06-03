@@ -106,14 +106,9 @@ class SentechCameraStream:
         self.my_callback = CMyCallback()
         self.cb_func = self.my_callback.datastream_callback
 
-
-
-
+        # Get the interface class so that we can create device by index to support multiple cameras
         st_interface = st_system.get_interface(0)
         self.st_device = st_interface.create_device_by_index(deviceIdx)
-
-
-
 
         # Connect to first detected device.
         #self.st_device = st_system.create_first_device()
