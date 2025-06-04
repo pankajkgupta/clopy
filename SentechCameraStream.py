@@ -14,6 +14,13 @@ OFFSET_Y = "OffsetY"
 WIDTH = "Width"
 HEIGHT = "Height"
 
+
+# Create global stapipy system object to allow multiple camera usage
+# Initialize StApi before using.
+st.initialize()
+# Create a system object for device scan and connection.
+st_system = st.create_system()
+
 class CMyCallback:
     """
     Class that contains a callback function.
@@ -92,20 +99,19 @@ class CMyCallback:
                     self._lock.release()
 
 class SentechCameraStream:
-    def __init__(self, cfgDict=None):
+    def __init__(self, cfgDict=None, deviceIdx=0):
         self.cfg_dict = cfgDict
         self.res = list(map(int, cfgDict['resolution'].split(', ')))
         # initialize the camera and stream
         self.my_callback = CMyCallback()
         self.cb_func = self.my_callback.datastream_callback
-        # Initialize StApi before using.
-        st.initialize()
 
-        # Create a system object for device scan and connection.
-        st_system = st.create_system()
+        # Get the interface class so that we can create device by index to support multiple cameras
+        st_interface = st_system.get_interface(0)
+        self.st_device = st_interface.create_device_by_index(deviceIdx)
 
         # Connect to first detected device.
-        self.st_device = st_system.create_first_device()
+        #self.st_device = st_system.create_first_device()
 
         # Display DisplayName of the device.
         print('Device=', self.st_device.info.display_name)
