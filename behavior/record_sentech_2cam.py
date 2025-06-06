@@ -19,13 +19,13 @@ import RPi.GPIO as GPIO
 from Arduino import Arduino
 import cvui
 import tables
-import ClosedLoopHelper2ROI as clh
 import roi_manager
 from collections import deque
 import re
 import json
 from configparser import ConfigParser
 import csv
+import helper as clh
 # import board
 # import busio
 # import adafruit_mpr121
@@ -47,13 +47,14 @@ data_root   = cfgDict['data_root']
 image_stream_filename = cfgDict['video_file']
 res     = list(map(int, cfgDict['resolution'].split(', ')))
 fr = int(cfgDict['framerate'])
+audio = float(cfgDict['audio'])
 total_trials = int(cfgDict['total_trials'])
 maxTrialDur = int(cfgDict['max_trial_dur'])
 startrest_duration = int(cfgDict['start_rest_dur'])
 endrest_duration = int(cfgDict['end_rest_dur'])
 n_tones = 0
 audiodelay = 0
-sessionType = clh.SessionType.continuous_rewards
+sessionType = clh.SessionType.behavior_recording
 
 #list of sessions. session_name,reward_threshold_mm
 sessions = [('S1',0)]
@@ -170,6 +171,7 @@ with open(configPath, 'w', encoding="utf-8") as f:
 GPIO.output(ledLightTTL, GPIO.LOW)
 
 mouse_id = input("Please enter mouse ID: ")
+tr = 0
 # Get the current time and initialize the project folder
 tm = datetime.now()
 data_name = str(tm.year) + \
@@ -281,8 +283,8 @@ for session, reward_threshold_mm in sessions:
                       str(audio) + '\t' +
                       str(touch) + '\n')
         
-        cvui.imshow(WINDOW_NAME, cv2.resize(image1,(image1.shape[1]*2,image1.shape[0]*2)));
-        cvui.imshow(WINDOW_NAME + '2', cv2.resize(image2,(image2.shape[1]*2,image2.shape[0]*2)));
+        cvui.imshow(WINDOW_NAME, cv2.resize(image1,(image1.shape[1],image1.shape[0])));
+        cvui.imshow(WINDOW_NAME + '2', cv2.resize(image2,(image2.shape[1],image2.shape[0])));
         # Press Esc or Ctrl-C to stop the program
         k = cv2.waitKey(1)
         if k == 27:
@@ -320,8 +322,8 @@ for session, reward_threshold_mm in sessions:
                       str(0) + '\t' +
                       str(0) + '\t' +
                       str(0) + '\n')
-        cvui.imshow(WINDOW_NAME, cv2.resize(image1,(image1.shape[1]*2,image1.shape[0]*2)))
-        cvui.imshow(WINDOW_NAME +'2', cv2.resize(image2,(image2.shape[1]*2,image2.shape[0]*2)))
+        cvui.imshow(WINDOW_NAME, cv2.resize(image1,(image1.shape[1],image1.shape[0])))
+        cvui.imshow(WINDOW_NAME +'2', cv2.resize(image2,(image2.shape[1],image2.shape[0])))
         k = cv2.waitKey(1)
         if k == 27:
             break

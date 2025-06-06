@@ -760,3 +760,4 @@ class SessionType(Enum):
     no_audio_random_reward = 6
     no_audio_no_reward = 7
     continuous_rewards = 8
+    behavior_recording = 9
