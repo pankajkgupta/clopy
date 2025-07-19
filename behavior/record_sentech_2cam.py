@@ -81,6 +81,8 @@ run_threads = True
 runPreview = True
 runRecording = True
 
+mouse_id = input("Please enter mouse ID: ")
+
 WINDOW_NAME = 'Closed loop'
 
 cvui.init(WINDOW_NAME)
@@ -170,7 +172,6 @@ with open(configPath, 'w', encoding="utf-8") as f:
 
 GPIO.output(ledLightTTL, GPIO.LOW)
 
-mouse_id = input("Please enter mouse ID: ")
 tr = 0
 # Get the current time and initialize the project folder
 tm = datetime.now()
