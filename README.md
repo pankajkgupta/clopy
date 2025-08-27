@@ -98,7 +98,7 @@ sudo apt-get install libsdl1.2-dev
 sudo apt-get install libsdl-mixer1.2-dev
 ```
 ```
-pip3 install cython
+pip3 install cython==0.29.21
 ```
 ```
 pip3 install kivy
@@ -117,7 +117,7 @@ cd audiostream
 ```
 Run Audiostream setup installation
 ```
-sudo python setup.py install
+python setup.py install
 ```
 
 After setup completes successfully, change the current directory to a directory where you want to clone CLoPy (eg. home directory)
