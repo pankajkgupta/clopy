@@ -4,11 +4,6 @@ Closed-loop feedback training system (CLoPy) for neurofeedback and specified mov
 This work accompanies the research paper - 
 https://www.biorxiv.org/content/10.1101/2024.11.02.619716v1
 
-## Overall modules in the system:
-
-![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/fig1.png?raw=true)
-
-
 ## Folder structure
 ```
 clopy/
@@ -38,10 +33,14 @@ clopy/
 └── VideoStream.py
 ```
 
-
-# Setup
+## Setup
 
 Overview of CLNF process (A) and CLMF process (B)
+
+![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/fig1.png?raw=true)
+
+
+## Overall modules in the system:
 
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/fig2.png?raw=true)
 
@@ -68,7 +67,7 @@ The following commands are to be run in a Terminal (Linux/MacOS)
 ```
 conda create -n clopy
 ```
-Activate the conda environment
+### Activate the conda environment
 
 ```
 conda activate clopy
@@ -104,28 +103,28 @@ pip3 install cython==0.29.21
 pip3 install kivy
 ```
 
-Clone the Audiostream repo:
+### Clone the Audiostream repo:
 ```
 git clone https://github.com/kivy/audiostream.git
 ```
 or download as a zip and extract.
 
-Change the directory to the downloaded repository
+### Change the directory to the downloaded repository
 
 ```
 cd audiostream
 ```
-Run Audiostream setup installation
+### Run Audiostream setup installation
 ```
 python setup.py install
 ```
 
-After setup completes successfully, change the current directory to a directory where you want to clone CLoPy (eg. home directory)
+### After setup completes successfully, change the current directory to a directory where you want to clone CLoPy (eg. home directory)
 ```
 cd ~
 ```
 
-Clone the CLoPy repository:
+### Clone the CLoPy repository:
 
 ```bash
 git clone https://github.com/pankajkgupta/clopy.git
@@ -137,7 +136,7 @@ git clone https://github.com/pankajkgupta/clopy.git
 cd clopy
 ```
 
-In the clopy root directory run
+### In the clopy root directory run
 
 For CLNF experiment involving single ROI (1ROI):
 ```bash
@@ -154,7 +153,7 @@ before hitting <kbd>Esc</kbd> button the the keyboard to start a session.
 
 If you want to interrupt the session after it starts, press the <kbd>Esc</kbd> button while the window is selected, to close the session as the program.
 
-#### Here are some reward-centered dorsal cortical maps averaged over trials of a session:
+### Here are some reward-centered dorsal cortical maps averaged over trials of a session:
 
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/animation1_clnf.gif?raw=true)
 
@@ -177,7 +176,7 @@ Install Python >= 3.8 ([anaconda](https://docs.anaconda.com/anaconda/install/) o
 ```
 conda create -n clopy
 ```
-Activate the conda environment
+### Activate the conda environment
 
 ```
 conda activate clopy
@@ -212,18 +211,18 @@ pip3 install cython==0.29.21
 pip3 install kivy
 ```
 
-Clone the Audiostream repo:
+### Clone the Audiostream repo:
 ```
 git clone https://github.com/kivy/audiostream.git
 ```
 or download as zip and extract.
 
-Change the directory to the downloaded repository
+### Change the directory to the downloaded repository
 
 ```
 cd audiostream
 ```
-Run Audiostream setup installation
+### Run Audiostream setup installation
 ```
 python setup.py install
 ```
@@ -239,12 +238,12 @@ python setup.py install
 pip install deeplabcut-live
 ```
 
-After setup completes successfully, change the current directory to a directory where you want to clone CLoPy (eg. home directory)
+### After setup completes successfully, change the current directory to a directory where you want to clone CLoPy (eg. home directory)
 ```
 cd ~
 ```
 
-Clone the CLoPy repository:
+### Clone the CLoPy repository:
 
 ```bash
 git clone https://github.com/pankajkgupta/clopy.git
@@ -256,7 +255,7 @@ git clone https://github.com/pankajkgupta/clopy.git
 cd clopy
 ```
 
-In the clopy root directory run
+### In the clopy root directory run
 
 ```bash
 python behavior/cla_dlc_trials_speed.py
@@ -269,10 +268,10 @@ before hitting <kbd>Esc</kbd> button the the keyboard to start a session.
 If you want to interrupt the session after it starts, press the <kbd>Esc</kbd> button while the window is selected, to close the session as the program.
 
 
-#### Here are two example trials from the CLMF experiment where the task was to move the left fore-limb (top animation)
+### Here are two example trials from the CLMF experiment where the task was to move the left fore-limb (top animation)
 
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20230728121232_rewbehbrain20594.gif?raw=true)
 
-#### ... and later the same mouse was trained to move the right fore-limb
+### ... and later the same mouse was trained to move the right fore-limb
 
 ![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20231004180719_rewbehbrain9898.gif?raw=true)
