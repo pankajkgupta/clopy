@@ -1,0 +1,37 @@
+site_name: CLoPy Documentation
+site_description: Closed-loop feedback training system for neurofeedback and specified movement feedback in mice
+site_url: https://github.com/pankajkgupta/clopy
+repo_url: https://github.com/pankajkgupta/clopy
+edit_uri: ""
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: installation.md
+      - Quick Start: quickstart.md
+  - Experiments:
+      - CLNF (Closed-Loop Neurofeedback): clnf.md
+      - CLMF (Closed-Loop Movement Feedback): clmf.md
+  - Configuration: configuration.md
+  - Hardware Setup: hardware.md
+  - Analysis: analysis.md
+  - Troubleshooting: troubleshooting.md
+  - API Reference: api.md
+
+theme:
+  name: material
+  palette:
+    primary: indigo
+    accent: blue
+  features:
+    - navigation.tabs
+    - navigation.top
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - toc:
+      permalink: true
+
+plugins:
+  - search
