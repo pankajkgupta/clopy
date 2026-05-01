@@ -19,7 +19,7 @@ CLoPy implements two complementary closed-loop paradigms:
 
 ## System Architecture
 
-![CLoPy platform](../assets/fig1.png)
+![CLoPy platform](./assets/fig1.png)
 
 ## Key Features
 

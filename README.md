@@ -10,8 +10,7 @@ clopy/
 ├── analysis/                                               Folder with analysis code
 │   ├── get_clmf_data.py
 │   ├── plot_clmf.py
-│   └── plot_clnf.py
-├── assets/                                                 Folder with images and animations for display
+│   ├── plot_clnf.py
 │   ├──
 │   . 
 │   . 
@@ -37,12 +36,12 @@ clopy/
 
 Overview of CLNF process (A) and CLMF process (B)
 
-![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/fig1.png?raw=true)
+![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/docs/assets/fig1.png?raw=true)
 
 
 ## Overall modules in the system:
 
-![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/fig2.png?raw=true)
+![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/docs/assets/fig2.png?raw=true)
 
 
 
@@ -52,7 +51,7 @@ Overview of CLNF process (A) and CLMF process (B)
 > CLNF was implemented on Raspberry Pi 4B+ and the steps below are to replicate that. 
 > But the system can be adapted to other platforms with minor adaptations.
 
-The rig hardware parts list can be found here- [CLNF_Parts_List_and_Assembly_Instructions_Gupta_et_al.pdf](https://github.com/pankajkgupta/clopy/blob/main/assets/CLNF_Parts_List_and_Assembly_Instructions_Gupta_et_al.pdf)
+The rig hardware parts list can be found here- [CLNF_Parts_List_and_Assembly_Instructions_Gupta_et_al.pdf](https://github.com/pankajkgupta/clopy/blob/main/docs/assets/CLNF_Parts_List_and_Assembly_Instructions_Gupta_et_al.pdf)
 
 How-to
 ---------------------------
@@ -155,7 +154,7 @@ If you want to interrupt the session after it starts, press the <kbd>Esc</kbd> b
 
 ### Here are some reward-centered dorsal cortical maps averaged over trials of a session:
 
-![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/animation1_clnf.gif?raw=true)
+![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/docs/assets/animation1_clnf.gif?raw=true)
 
 ## CLMF setup
 
@@ -163,7 +162,7 @@ If you want to interrupt the session after it starts, press the <kbd>Esc</kbd> b
 > CLMF was implemented on Nvidia-Jetson Orin and steps below are to replicate that. 
 > But the system can be adapted to other platforms with a GPU capable of inference.
 
-The rig hardware parts list can be found here- [CLMF_Parts_List_and_Assembly_Instructions_Gupta_et_al.pdf](https://github.com/pankajkgupta/clopy/blob/main/assets/CLMF_Parts_List_and_Assembly_Instructions_Gupta_et_al.pdf)
+The rig hardware parts list can be found here- [CLMF_Parts_List_and_Assembly_Instructions_Gupta_et_al.pdf](https://github.com/pankajkgupta/clopy/blob/main/docs/assets/CLMF_Parts_List_and_Assembly_Instructions_Gupta_et_al.pdf)
 
 How-to
 ---------------------------
@@ -270,8 +269,8 @@ If you want to interrupt the session after it starts, press the <kbd>Esc</kbd> b
 
 ### Here are two example trials from the CLMF experiment where the task was to move the left fore-limb (top animation)
 
-![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20230728121232_rewbehbrain20594.gif?raw=true)
+![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/docs/assets/GT33_tta_20230728121232_rewbehbrain20594.gif?raw=true)
 
 ### ... and later the same mouse was trained to move the right fore-limb
 
-![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/assets/GT33_tta_20231004180719_rewbehbrain9898.gif?raw=true)
+![CLoPy](https://github.com/pankajkgupta/clopy/blob/main/docs/assets/GT33_tta_20231004180719_rewbehbrain9898.gif?raw=true)
