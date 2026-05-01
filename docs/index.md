@@ -3,7 +3,7 @@
 CLoPy is a closed-loop feedback training system for neurofeedback and specified movement feedback in mice. This system enables real-time manipulation of neural activity or behavior based on calcium imaging or pose estimation.
 
 !!! info "Paper"
-    This work accompanies the research paper: [https://www.biorxiv.org/content/10.1101/2024.11.02.619716v1](https://www.biorxiv.org/content/10.1101/2024.11.02.619716v1)
+    This work accompanies the research paper: [https://elifesciences.org/reviewed-preprints/105070](https://elifesciences.org/reviewed-preprints/105070)
 
 ## Overview
 
@@ -21,20 +21,20 @@ CLoPy implements two complementary closed-loop paradigms:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                        CLoPy System                              │
+│                        CLoPy System                             │
 ├─────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐      │
+│                                                                 │
+│  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐       │
 │  │   Camera     │───▶│  Processing  │───▶│   Feedback   │      │
-│  │  (Pi/Orin)   │    │  (DFF/Pose)  │    │  (Audio/LED) │      │
-│  └──────────────┘    └──────────────┘    └──────────────┘      │
+│  │  (Pi/Orin)   │    │  (DFF/Pose)  │    │  (Audio/LED) │       │
+│  └──────────────┘    └──────────────┘    └──────────────┘       │
 │         │                   │                   │               │
 │         ▼                   ▼                   ▼               │
-│  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐      │
-│  │  ROI Manager │    │   Threshold  │    │   Reward     │      │
-│  │   (Select)   │    │   Detection  │    │   Delivery   │      │
-│  └──────────────┘    └──────────────┘    └──────────────┘      │
-│                                                                  │
+│  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐       │
+│  │  ROI Manager │    │   Threshold  │    │   Reward     │       │
+│  │   (Select)   │    │   Detection  │    │   Delivery   │       │
+│  └──────────────┘    └──────────────┘    └──────────────┘       │
+│                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
