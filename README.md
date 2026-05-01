@@ -4,6 +4,8 @@ Closed-loop feedback training system (CLoPy) for neurofeedback and specified mov
 This work accompanies the research paper - 
 https://www.biorxiv.org/content/10.1101/2024.11.02.619716v1
 
+For more documentation please see the Docs: https://clopy-docs.readthedocs.io/
+
 ## Folder structure
 ```
 clopy/
