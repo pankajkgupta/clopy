@@ -3,6 +3,7 @@ site_description: Closed-loop feedback training system for neurofeedback and spe
 site_url: https://github.com/pankajkgupta/clopy
 repo_url: https://github.com/pankajkgupta/clopy
 edit_uri: ""
+docs_dir: .
 
 nav:
   - Home: index.md
