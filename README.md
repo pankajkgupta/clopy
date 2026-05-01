@@ -7,30 +7,66 @@ https://www.biorxiv.org/content/10.1101/2024.11.02.619716v1
 ## Folder structure
 ```
 clopy/
-├── analysis/                                               Folder with analysis code
-│   ├── get_clmf_data.py
-│   ├── plot_clmf.py
-│   ├── plot_clnf.py
-│   ├──
-│   . 
-│   . 
-│   . 
-│    
-├── behavior/                                               Folder with script to run CLMF experiment
-│   └── cla_dlc_trials_speed.py
-├── brain/                                                  Folder with scripts to run CLNF experiment
-│   ├── cla_reward_punish_1roi.py
-│   └── cla_reward_punish_2roi.py
-├── CameraFactory.py
-├── config.ini
-├── helper.py
-├── PiCameraStream.py
-├── processed_data/                                         Place preprocessed data in this folder to recreate figures
-├── README.md
-├── roi_manager.py
-├── SentechCameraStream.py
-└── VideoStream.py
+│
+├── 📁 analysis/                           Data analysis and visualization
+│   ├── get_clmf_data.py                  Load and process CLMF behavioral data
+│   ├── plot_clmf.py                      Generate CLMF figures and plots
+│   └── plot_clnf.py                      Generate CLNF figures and plots
+│
+├── 📁 behavior/                           CLMF (Movement Feedback) Experiments
+│   └── cla_dlc_trials_speed.py           Main CLMF experiment script
+│
+├── 📁 brain/                              CLNF (Neurofeedback) Experiments
+│   ├── cla_reward_punish_1roi.py         CLNF single ROI experiment
+│   └── cla_reward_punish_2roi.py         CLNF dual ROI experiment
+│
+├── 📁 3D-print/                           3D-printable hardware components
+│   ├── MirrorHolderFront.dxf
+│   ├── MirrorHolderRear.dxf
+│   ├── MouseEnclosureTop.dxf
+│   ├── MouseHeadFixBack.dxf
+│   ├── MouseHeadFixBottom.dxf
+│   ├── MouseHeadFixPost.dxf
+│   └── MouseHeadFixTop.dxf
+│
+├── 📁 processed_data/                     Preprocessed data for figure reproduction
+│   ├── clmf_kld_df.csv
+│   ├── clmf_sessions_df.csv
+│   ├── clmf_trials_df.csv
+│   └── clnf_sessions_df.csv
+│
+├── 📁 docs/                               ReadTheDocs documentation
+│   ├── 📁 assets/                        Images, animations, and documentation
+│   │   ├── fig1.png                      System overview diagram
+│   │   ├── fig2.png                      Module architecture diagram
+│   │   ├── animation1_clnf.gif            Neurofeedback trial example
+│   │   └── *.pdf                         Hardware assembly instructions
+│   │
+│   ├── mkdocs.yml                        Documentation configuration
+│   ├── index.md                          Home page
+│   ├── installation.md                   Installation guide
+│   ├── quickstart.md                     Quick start tutorial
+│   ├── clnf.md                           CLNF experiment guide
+│   ├── clmf.md                           CLMF experiment guide
+│   ├── configuration.md                  Configuration reference
+│   ├── hardware.md                       Hardware setup guide
+│   ├── analysis.md                       Data analysis guide
+│   ├── troubleshooting.md                Troubleshooting & FAQ
+│   ├── api.md                            API reference
+│   └── requirements.txt                  Documentation dependencies
+│
+├── 📄 CameraFactory.py                    Camera abstraction layer
+├── 📄 config.ini                          Configuration file for all experiments
+├── 📄 helper.py                           Utility functions and enums
+├── 📄 roi_manager.py                      ROI definition and management
+├── 📄 PiCameraStream.py                   Raspberry Pi camera driver
+├── 📄 SentechCameraStream.py              Sentech USB camera driver
+├── 📄 VideoStream.py                      Generic video stream interface
+├── 📄 README.md                           Project overview
+├── 📄 .readthedocs.yaml                   ReadTheDocs configuration
+└── 📄 .gitignore                          Git ignore rules
 ```
+
 
 ## Setup
 
