@@ -18,11 +18,8 @@ CLoPy implements two complementary closed-loop paradigms:
 | **Reward** | Water reward on threshold crossing | Water reward on target movement |
 
 ## System Architecture
-**Setup of real-time feedback for GCaMP6 cortical activity and movements**
-![CLoPy platform](./assets/fig1.png)
 
-**Schematic of the closed-loop feedback training system (CLoPy) for neurofeedback and specified movement feedback**
-![CLoPy schematic](./assets/fig2.png)
+![CLoPy platform](./assets/fig1.png)
 
 ## Key Features
 
@@ -37,25 +34,77 @@ CLoPy implements two complementary closed-loop paradigms:
 
 ```
 clopy/
-├── analysis/                    # Data analysis scripts
-│   ├── get_clmf_data.py
-│   ├── plot_clmf.py
-│   └── plot_clnf.py
-├── assets/                      # Images and animations
-├── behavior/                    # CLMF experiment scripts
-│   └── cla_dlc_trials_speed.py
-├── brain/                       # CLNF experiment scripts
-│   ├── cla_reward_punish_1roi.py
-│   └── cla_reward_punish_2roi.py
-├── docs/                        # Documentation
-├── CameraFactory.py             # Camera abstraction
-├── config.ini                   # Configuration file
-├── helper.py                    # Utility functions
-├── roi_manager.py               # ROI management
-├── PiCameraStream.py            # Pi Camera driver
-├── SentechCameraStream.py       # Sentech Camera driver
-└── VideoStream.py               # Video capture
+│
+├── 📁 analysis/                           Data analysis and visualization
+│   ├── get_clmf_data.py                  Load and process CLMF behavioral data
+│   ├── plot_clmf.py                      Generate CLMF figures and plots
+│   └── plot_clnf.py                      Generate CLNF figures and plots
+│
+├── 📁 behavior/                           CLMF (Movement Feedback) Experiments
+│   └── cla_dlc_trials_speed.py           Main CLMF experiment script
+│
+├── 📁 brain/                              CLNF (Neurofeedback) Experiments
+│   ├── cla_reward_punish_1roi.py         CLNF single ROI experiment
+│   └── cla_reward_punish_2roi.py         CLNF dual ROI experiment
+│
+├── 📁 3D-print/                           3D-printable hardware components
+│   ├── MirrorHolderFront.dxf
+│   ├── MirrorHolderRear.dxf
+│   ├── MouseEnclosureTop.dxf
+│   ├── MouseHeadFixBack.dxf
+│   ├── MouseHeadFixBottom.dxf
+│   ├── MouseHeadFixPost.dxf
+│   └── MouseHeadFixTop.dxf
+│
+├── 📁 processed_data/                     Preprocessed data for figure reproduction
+│   ├── clmf_kld_df.csv
+│   ├── clmf_sessions_df.csv
+│   ├── clmf_trials_df.csv
+│   └── clnf_sessions_df.csv
+│
+├── 📁 docs/                               ReadTheDocs documentation
+│   ├── 📁 assets/                        Images, animations, and documentation
+│   │   ├── fig1.png                      System overview diagram
+│   │   ├── fig2.png                      Module architecture diagram
+│   │   ├── animation1_clnf.gif            Neurofeedback trial example
+│   │   └── *.pdf                         Hardware assembly instructions
+│   │
+│   ├── mkdocs.yml                        Documentation configuration
+│   ├── index.md                          Home page
+│   ├── installation.md                   Installation guide
+│   ├── quickstart.md                     Quick start tutorial
+│   ├── clnf.md                           CLNF experiment guide
+│   ├── clmf.md                           CLMF experiment guide
+│   ├── configuration.md                  Configuration reference
+│   ├── hardware.md                       Hardware setup guide
+│   ├── analysis.md                       Data analysis guide
+│   ├── troubleshooting.md                Troubleshooting & FAQ
+│   ├── api.md                            API reference
+│   └── requirements.txt                  Documentation dependencies
+│
+├── 📄 CameraFactory.py                    Camera abstraction layer
+├── 📄 config.ini                          Configuration file for all experiments
+├── 📄 helper.py                           Utility functions and enums
+├── 📄 roi_manager.py                      ROI definition and management
+├── 📄 PiCameraStream.py                   Raspberry Pi camera driver
+├── 📄 SentechCameraStream.py              Sentech USB camera driver
+├── 📄 VideoStream.py                      Generic video stream interface
+├── 📄 README.md                           Project overview
+├── 📄 .readthedocs.yaml                   ReadTheDocs configuration
+└── 📄 .gitignore                          Git ignore rules
 ```
+
+### Directory Descriptions
+
+| Directory | Purpose |
+|-----------|---------|
+| `analysis/` | Scripts for data analysis and figure generation |
+| `behavior/` | CLMF experiment scripts (Jetson Orin) |
+| `brain/` | CLNF experiment scripts (Raspberry Pi) |
+| `3D-print/` | 3D-printable hardware components (DXF format) |
+| `processed_data/` | Pre-processed data for recreating paper figures |
+| `docs/` | ReadTheDocs documentation source files and assets |
+| `docs/assets/` | Images, animations, and visual files |
 
 ## Quick Links
 
