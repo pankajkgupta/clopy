@@ -20,7 +20,7 @@ nav:
   - API Reference: api.md
 
 theme:
-  name: material
+  name: readthedocs
   palette:
     primary: indigo
     accent: blue
