@@ -18,8 +18,11 @@ CLoPy implements two complementary closed-loop paradigms:
 | **Reward** | Water reward on threshold crossing | Water reward on target movement |
 
 ## System Architecture
-
+**Setup of real-time feedback for GCaMP6 cortical activity and movements**
 ![CLoPy platform](./assets/fig1.png)
+
+**Schematic of the closed-loop feedback training system (CLoPy) for neurofeedback and specified movement feedback**
+![CLoPy schematic](./assets/fig2.png)
 
 ## Key Features
 
