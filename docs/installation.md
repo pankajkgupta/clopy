@@ -103,17 +103,17 @@ cd clopy
 
 1. Enable I2C interface:
 
-   ```bash
-   sudo raspi-config
-   ```
+```bash
+sudo raspi-config
+```
 
    Navigate to `Interface Options` → `I2C` → `Enable`
 
 2. Install I2C tools:
 
-   ```bash
-   sudo apt-get install i2c-tools
-   ```
+```bash
+sudo apt-get install i2c-tools
+```
 
 ### Arduino Setup (for CLMF)
 
