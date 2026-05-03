@@ -28,36 +28,42 @@ pip3 install opencv-python tables cvui roipoly scipy pandas joblib pillow videof
 
 ### Install PyAudio
 
-=== "Linux (Debian/Ubuntu)"
-    ```bash
-    sudo apt-get install portaudio19-dev python3-pyaudio
-    pip3 install PyAudio
-    ```
+#### Linux (Debian/Ubuntu)
 
-=== "macOS"
-    ```bash
-    brew install portaudio
-    pip3 install PyAudio
-    ```
+```bash
+sudo apt-get install portaudio19-dev python3-pyaudio
+pip3 install PyAudio
+```
 
-=== "Windows"
-    Download PyAudio from [Christophe Gauthier's site](https://people.csail.mit.edu/hubert/pyaudio/) or use:
-    ```bash
-    pip3 install PyAudio
-    ```
+#### macOS
+
+```bash
+brew install portaudio
+pip3 install PyAudio
+```
+
+#### Windows
+
+Download PyAudio from [Christophe Gauthier's site](https://people.csail.mit.edu/hubert/pyaudio/) or use:
+
+```bash
+pip3 install PyAudio
+```
 
 ### Install Audiostream
 
-=== "Linux (Debian/Ubuntu)"
-    ```bash
-    sudo apt-get install libsdl1.2-dev
-    sudo apt-get install libsdl-mixer1.2-dev
-    pip3 install cython==0.29.21
-    pip3 install kivy
-    ```
+#### Linux (Debian/Ubuntu)
 
-=== "macOS/Windows"
-    Follow [Kivy installation guide](https://kivy.org/doc/stable/gettingstarted/installation.html)
+```bash
+sudo apt-get install libsdl1.2-dev
+sudo apt-get install libsdl-mixer1.2-dev
+pip3 install cython==0.29.21
+pip3 install kivy
+```
+
+#### macOS/Windows
+
+Follow [Kivy installation guide](https://kivy.org/doc/stable/gettingstarted/installation.html)
 
 ```bash
 # Clone audiostream repository
