@@ -28,15 +28,15 @@ Detailed hardware assembly instructions for CLoPy experiments.
 │              Raspberry Pi GPIO              │
 ├─────────────────────────────────────────────┤
 │                                             │
-│  3.3V  ──── VCC (MPR121)                   │
-│  GND   ──── GND (MPR121, LEDs)             │
-│  SCL   ──── SCL (MPR121)                   │
-│  SDA   ──── SDA (MPR121)                   │
+│  3.3V  ──── VCC (MPR121)                    │
+│  GND   ──── GND (MPR121, LEDs)              │
+│  SCL   ──── SCL (MPR121)                    │
+│  SDA   ──── SDA (MPR121)                    │
 │                                             │
-│  GPIO17 ──── Behavior LED (pin 1)          │
-│  GPIO27 ──── Reward LED (pin 1)            │
-│  GPIO12 ──── Fail LED (pin 1)              │
-│  GPIO21 ──── Light TTL (pin 1)             │
+│  GPIO17 ──── Behavior LED (pin 1)           │
+│  GPIO27 ──── Reward LED (pin 1)             │
+│  GPIO12 ──── Fail LED (pin 1)               │
+│  GPIO21 ──── Light TTL (pin 1)              │
 │                                             │
 └─────────────────────────────────────────────┘
 ```
@@ -55,34 +55,34 @@ Connect to relay controlled by Arduino or GPIO.
 
 1. Connect camera to CSI port
 2. Enable camera in `raspi-config`:
-   ```bash
-   sudo raspi-config
-   ```
-   → Interface Options → Camera → Enable
+    ```bash
+    sudo raspi-config
+    ```
+    → Interface Options → Camera → Enable
 
 3. Test camera:
-   ```bash
-   raspistill -o test.jpg
-   ```
+    ```bash
+    raspistill -o test.jpg
+    ```
 
 ### I2C Setup for MPR121
 
 1. Enable I2C:
-   ```bash
-   sudo raspi-config
-   ```
-   → Interface Options → I2C → Enable
+    ```bash
+    sudo raspi-config
+    ```
+    → Interface Options → I2C → Enable
 
 2. Install tools:
-   ```bash
-   sudo apt-get install i2c-tools
-   ```
+    ```bash
+    sudo apt-get install i2c-tools
+    ```
 
 3. Verify connection:
-   ```bash
-   sudo i2cdetect -y 1
-   ```
-   Should show device at address `0x5a`
+    ```bash
+    sudo i2cdetect -y 1
+    ```
+    Should show device at address `0x5a`
 
 ## CLMF Hardware (Jetson Orin)
 
@@ -102,17 +102,17 @@ Connect to relay controlled by Arduino or GPIO.
 
 ```
 ┌─────────────────────────────────────────────┐
-│                 Arduino                      │
+│                 Arduino                     │
 ├─────────────────────────────────────────────┤
 │                                             │
-│  13  ──── Brain TTL (output)               │
+│  13  ──── Brain TTL (output)                │
 │  7   ──── Reward LED                        │
 │  12  ──── Fail LED                          │
 │  40  ──── Light TTL                         │
 │                                             │
-│  GND  ──── GND (LEDs, TTL)                 │
+│  GND  ──── GND (LEDs, TTL)                  │
 │                                             │
-│  Serial: /dev/ttyACM0                      │
+│  Serial: /dev/ttyACM0                       │
 │                                             │
 └─────────────────────────────────────────────┘
 ```
@@ -125,9 +125,9 @@ board = Arduino("115200", port="/dev/ttyACM0")
 
 !!! note "Serial Port"
     The serial port may vary. Check with:
-    ```bash
-    ls /dev/ttyACM*
-    ```
+        ```bash
+        ls /dev/ttyACM*
+        ```
 
 ### Camera Setup (Sentech)
 
