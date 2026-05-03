@@ -29,10 +29,12 @@ Monitors a single brain region. Reward triggered when activity exceeds threshold
 python brain/cla_reward_punish_2roi.py
 ```
 
-Monitors two brain regions with mathematical operations:
+Monitors two brain regions (can be extended to more number of regions) with mathematical operations such as:
 
 - **Addition**: `ROI1 + ROI2`
 - **Subtraction**: `ROI1 - ROI2`
+
+Other operations such as multiplication, division etc. are supported and can be specified in the `config.ini` file.
 
 ## Configuration Parameters
 
