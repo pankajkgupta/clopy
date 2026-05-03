@@ -235,8 +235,8 @@ Default seed positions (in mm from bregma):
 
 !!! tip "ROI Position Adjustment"
     After running the preview, ROI positions are saved back to `config.ini`. You can also manually specify coordinates:
-    
-    ```ini
-    m1_l = 76,114,8,8
-    ```
-    Format: `x, y, width, height`
+
+```ini
+m1_l = 76,114,8,8
+```
+Format: `x, y, width, height`
