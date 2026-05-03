@@ -55,34 +55,34 @@ Connect to relay controlled by Arduino or GPIO.
 
 1. Connect camera to CSI port
 2. Enable camera in `raspi-config`:
-    ```bash
-    sudo raspi-config
-    ```
-    → Interface Options → Camera → Enable
+   ```bash
+   sudo raspi-config
+   ```
+   → Interface Options → Camera → Enable
 
 3. Test camera:
-    ```bash
-    raspistill -o test.jpg
-    ```
+   ```bash
+   raspistill -o test.jpg
+   ```
 
 ### I2C Setup for MPR121
 
 1. Enable I2C:
-    ```bash
-    sudo raspi-config
-    ```
-    → Interface Options → I2C → Enable
+   ```bash
+   sudo raspi-config
+   ```
+   → Interface Options → I2C → Enable
 
 2. Install tools:
-    ```bash
-    sudo apt-get install i2c-tools
-    ```
+   ```bash
+   sudo apt-get install i2c-tools
+   ```
 
 3. Verify connection:
-    ```bash
-    sudo i2cdetect -y 1
-    ```
-    Should show device at address `0x5a`
+   ```bash
+   sudo i2cdetect -y 1
+   ```
+   Should show device at address `0x5a`
 
 ## CLMF Hardware (Jetson Orin)
 
@@ -125,9 +125,9 @@ board = Arduino("115200", port="/dev/ttyACM0")
 
 !!! note "Serial Port"
     The serial port may vary. Check with:
-        ```bash
-        ls /dev/ttyACM*
-        ```
+    ```bash
+    ls /dev/ttyACM*
+    ```
 
 ### Camera Setup (Sentech)
 
