@@ -33,24 +33,27 @@ python behavior/cla_dlc_trials_speed.py
    ```
 
 2. **Preview Window**: A preview window appears showing:
-   - Live camera feed
-   - ROI positions (draggable rectangles)
-   - DFF (ΔF/F) visualization
-   - Luminosity sparklines
+
+    - Live camera feed
+    - ROI positions (draggable rectangles)
+    - DFF (ΔF/F) visualization
+    - Luminosity sparklines
 
 3. **Verify Setup**: Ensure:
-   - Camera is properly positioned
-   - ROI covers the target brain region
-   - Bregma landmark is visible
-   - Lighting is adequate
+
+    - Camera is properly positioned
+    - ROI covers the target brain region
+    - Bregma landmark is visible
+    - Lighting is adequate
 
 4. **Start Session**: Press `Esc` to begin the experiment
 
 5. **During Experiment**:
-   - Trials start automatically after initial rest period
-   - Audio tones play during active trials
-   - Green LED flashes on successful trials
-   - Red LED flashes on failed trials
+
+    - Trials start automatically after initial rest period
+    - Audio tones play during active trials
+    - Green LED flashes on successful trials
+    - Red LED flashes on failed trials
 
 6. **End Session**: Press `Esc` to stop early, or let it complete
 
@@ -58,23 +61,23 @@ python behavior/cla_dlc_trials_speed.py
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                      Trial Structure                         │
+│                      Trial Structure                        │
 ├─────────────────────────────────────────────────────────────┤
-│                                                              │
-│  ┌──────────┐    ┌──────────────┐    ┌────────────┐        │
+│                                                             │
+│  ┌──────────┐    ┌──────────────┐     ┌────────────┐        │
 │  │  Rest    │───▶│    Trial     │───▶│  Outcome   │        │
-│  │ Period   │    │   (max 30s)  │    │            │        │
-│  └──────────┘    └──────────────┘    └────────────┘        │
-│       │                                    │                │
-│       ▼                                    ▼                │
-│  10-30 seconds                    ┌───────┴───────┐        │
-│                                   │               │        │
-│                              Success            Fail        │
-│                              (reward)         (buzzer)      │
-│                                   │               │        │
-│                                   ▼               ▼        │
-│                              10s rest        15s rest       │
-│                                                              │
+│  │ Period   │    │   (max 30s)  │     │            │        │
+│  └──────────┘    └──────────────┘     └────────────┘        │
+│  10-15 seconds                             │                │
+│                                            ▼                │
+│                                    ┌───────┴───────┐        │
+│                                    │               │        │
+│                                Success            Fail      │
+│                                (reward)         (buzzer)    │
+│                                   │                │        │
+│                                   ▼                ▼        │
+│                                10s rest        15s rest     │
+│                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
 
